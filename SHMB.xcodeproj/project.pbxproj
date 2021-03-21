@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,13 +18,18 @@
 		FC01CB9A260613DC00B865D9 /* SHMBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CB99260613DC00B865D9 /* SHMBUITests.swift */; };
 		FC01CBC62606190500B865D9 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CBC52606190500B865D9 /* ServiceProvider.swift */; };
 		FC01CBD8260619FB00B865D9 /* StocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CBD6260619FB00B865D9 /* StocksViewController.swift */; };
-		FC01CBD9260619FB00B865D9 /* StocksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC01CBD7260619FB00B865D9 /* StocksViewController.xib */; };
 		FC01CBE726061A2200B865D9 /* StocksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CBE526061A2200B865D9 /* StocksCollectionViewCell.swift */; };
 		FC01CBE826061A2200B865D9 /* StocksCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC01CBE626061A2200B865D9 /* StocksCollectionViewCell.xib */; };
 		FC01CBED26061A6500B865D9 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CBEC26061A6500B865D9 /* L10n.swift */; };
 		FC01CC022606310400B865D9 /* StocksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC012606310400B865D9 /* StocksPresenter.swift */; };
 		FC01CC102606339D00B865D9 /* StocksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC0F2606339D00B865D9 /* StocksView.swift */; };
 		FC01CC18260633C300B865D9 /* StocksInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC17260633C300B865D9 /* StocksInfo.swift */; };
+		FC01CC2A26071B3700B865D9 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC2926071B3700B865D9 /* Style.swift */; };
+		FC01CC492608AB9000B865D9 /* SearchBarCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC472608AB9000B865D9 /* SearchBarCollectionReusableView.swift */; };
+		FC01CC4A2608AB9000B865D9 /* SearchBarCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC01CC482608AB9000B865D9 /* SearchBarCollectionReusableView.xib */; };
+		FC56FE2C2608C3A70029B659 /* l10n.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC01CBF826061EF900B865D9 /* l10n.strings */; };
+		FC56FE362608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */; };
+		FC56FE372608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +73,6 @@
 		FC01CB9B260613DC00B865D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC01CBC52606190500B865D9 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		FC01CBD6260619FB00B865D9 /* StocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksViewController.swift; sourceTree = "<group>"; };
-		FC01CBD7260619FB00B865D9 /* StocksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksViewController.xib; sourceTree = "<group>"; };
 		FC01CBE526061A2200B865D9 /* StocksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC01CBE626061A2200B865D9 /* StocksCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksCollectionViewCell.xib; sourceTree = "<group>"; };
 		FC01CBEC26061A6500B865D9 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
@@ -77,6 +81,11 @@
 		FC01CC012606310400B865D9 /* StocksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksPresenter.swift; sourceTree = "<group>"; };
 		FC01CC0F2606339D00B865D9 /* StocksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksView.swift; sourceTree = "<group>"; };
 		FC01CC17260633C300B865D9 /* StocksInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksInfo.swift; sourceTree = "<group>"; };
+		FC01CC2926071B3700B865D9 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		FC01CC472608AB9000B865D9 /* SearchBarCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCollectionReusableView.swift; sourceTree = "<group>"; };
+		FC01CC482608AB9000B865D9 /* SearchBarCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarCollectionReusableView.xib; sourceTree = "<group>"; };
+		FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksSegmentCollectionReusableView.swift; sourceTree = "<group>"; };
+		FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksSegmentCollectionReusableView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +203,7 @@
 				FC01CBC52606190500B865D9 /* ServiceProvider.swift */,
 				FC01CB7B260613DA00B865D9 /* ViewController.swift */,
 				FC01CBEC26061A6500B865D9 /* L10n.swift */,
+				FC01CC2926071B3700B865D9 /* Style.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -241,19 +251,38 @@
 			children = (
 				FC01CC0F2606339D00B865D9 /* StocksView.swift */,
 				FC01CBD6260619FB00B865D9 /* StocksViewController.swift */,
-				FC01CBD7260619FB00B865D9 /* StocksViewController.xib */,
-				FC01CC0E2606337500B865D9 /* StocksViewCell */,
+				FC56FE332608CA920029B659 /* StocksSegmentCollectionReusableView */,
+				FC01CC462608AB6500B865D9 /* SearchBarCollectionReusableView */,
+				FC01CC0E2606337500B865D9 /* StocksCollectionViewCell */,
 			);
 			path = StocksView;
 			sourceTree = "<group>";
 		};
-		FC01CC0E2606337500B865D9 /* StocksViewCell */ = {
+		FC01CC0E2606337500B865D9 /* StocksCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				FC01CBE526061A2200B865D9 /* StocksCollectionViewCell.swift */,
 				FC01CBE626061A2200B865D9 /* StocksCollectionViewCell.xib */,
 			);
-			path = StocksViewCell;
+			path = StocksCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		FC01CC462608AB6500B865D9 /* SearchBarCollectionReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				FC01CC472608AB9000B865D9 /* SearchBarCollectionReusableView.swift */,
+				FC01CC482608AB9000B865D9 /* SearchBarCollectionReusableView.xib */,
+			);
+			path = SearchBarCollectionReusableView;
+			sourceTree = "<group>";
+		};
+		FC56FE332608CA920029B659 /* StocksSegmentCollectionReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */,
+				FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */,
+			);
+			path = StocksSegmentCollectionReusableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +296,7 @@
 				FC01CB70260613DA00B865D9 /* Sources */,
 				FC01CB71260613DA00B865D9 /* Frameworks */,
 				FC01CB72260613DA00B865D9 /* Resources */,
+				6DCAC28737431C0C4CE49F14 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -304,6 +334,7 @@
 				FC01CB91260613DC00B865D9 /* Sources */,
 				FC01CB92260613DC00B865D9 /* Frameworks */,
 				FC01CB93260613DC00B865D9 /* Resources */,
+				4E1571CFA548DFF44255F19F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -363,10 +394,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC56FE372608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib in Resources */,
+				FC56FE2C2608C3A70029B659 /* l10n.strings in Resources */,
 				FC01CB84260613DC00B865D9 /* LaunchScreen.storyboard in Resources */,
+				FC01CC4A2608AB9000B865D9 /* SearchBarCollectionReusableView.xib in Resources */,
 				FC01CB81260613DC00B865D9 /* Assets.xcassets in Resources */,
 				FC01CBE826061A2200B865D9 /* StocksCollectionViewCell.xib in Resources */,
-				FC01CBD9260619FB00B865D9 /* StocksViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +464,40 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4E1571CFA548DFF44255F19F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SHMB-SHMBUITests/Pods-SHMB-SHMBUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SHMB-SHMBUITests/Pods-SHMB-SHMBUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SHMB-SHMBUITests/Pods-SHMB-SHMBUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DCAC28737431C0C4CE49F14 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SHMB/Pods-SHMB-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SHMB/Pods-SHMB-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SHMB/Pods-SHMB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9F3899B3833569AD2274CB40 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -460,6 +527,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC56FE362608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift in Sources */,
 				FC01CC102606339D00B865D9 /* StocksView.swift in Sources */,
 				FC01CBC62606190500B865D9 /* ServiceProvider.swift in Sources */,
 				FC01CBE726061A2200B865D9 /* StocksCollectionViewCell.swift in Sources */,
@@ -469,6 +537,8 @@
 				FC01CC18260633C300B865D9 /* StocksInfo.swift in Sources */,
 				FC01CBED26061A6500B865D9 /* L10n.swift in Sources */,
 				FC01CBD8260619FB00B865D9 /* StocksViewController.swift in Sources */,
+				FC01CC2A26071B3700B865D9 /* Style.swift in Sources */,
+				FC01CC492608AB9000B865D9 /* SearchBarCollectionReusableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

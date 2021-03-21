@@ -1,104 +1,291 @@
-//
-//  StocksViewController.swift
-//  SHMB
-//
-//  Created by Amin Benarieb on 20.03.2021.
-//
-
+import SnapKit
 import UIKit
 
 class StocksViewController: UIViewController {
+    enum Section {
+        case searchbar
+        case stocks
+    }
+
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, StocksInfo>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, StocksInfo>
 
     private var presenter: StocksPresenter!
-    private let configuration: Configuration; struct Configuration {
-        let cellHeight: Float = 120
-    }
-    private var stocksInfos: [StocksInfo]
-    
-    @IBOutlet weak private var collectionView: UICollectionView!
-    
+    private let appStyle: AppStyle
+    private let l10n: L10n
+    private var dataSource: DataSource?
+
+    private var collectionView: UICollectionView!
+
     // MARK: UIViewController life cycle
-    
-    init(configuration: Configuration) {
-        self.configuration = configuration
-        self.stocksInfos = []
-        super.init(nibName: "StocksViewController", bundle: nil)
+
+    init(serviceProvider: ServiceProvider) {
+        self.appStyle = serviceProvider.appStyle
+        self.l10n = serviceProvider.l10n
+        super.init(nibName: nil, bundle: nil)
         self.presenter = .init(view: self)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setup()
-        self.presenter.in(.viewDidLoad)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: self.collectionView.bounds.width, height: CGFloat(self.configuration.cellHeight))
-        }
-    }
-    
-    
-    // MARK: Setup
-    
-    private func setup() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.register(.init(nibName: "StocksCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "StocksCollectionViewCell")
+        self.setupUI()
     }
 
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupDataSource()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter.in(.viewWillAppear)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if
+            let flowLayout = self.collectionView
+            .collectionViewLayout as? UICollectionViewFlowLayout
+        {
+            flowLayout.itemSize = CGSize(
+                width: self.collectionView.bounds.width,
+                height: CGFloat(self.appStyle.cell.height)
+            )
+        }
+    }
+
+    // MARK: Setup
+
+    private func setupUI() {
+        // View
+        self.view.backgroundColor = self.appStyle.backgroundColor
+
+        // Navigation bar
+        self.title = self.l10n.localized(.screen_stocks_title_main)
+        self.navigationController?.navigationBar.tintColor = self.appStyle.navigationTintColor
+        self.navigationController?.navigationBar.barTintColor = self.appStyle.navigationBarTintColor
+        self.navigationController?.navigationBar.shadowImage = nil
+        self.navigationController?.navigationBar
+            .titleTextAttributes = [.foregroundColor: self.appStyle.navigationTitleColor]
+
+        // Collection View
+        let layout =
+            StocksCollectionViewFlowLayout(appStyle: self.appStyle)
+        layout.sectionHeadersPinToVisibleBounds = true
+        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        self.collectionView.backgroundColor = .clear
+        self.collectionView.alwaysBounceVertical = true
+        self.collectionView.indicatorStyle = self.appStyle.scrollViewIndicatorStyle
+        self.collectionView.delegate = self
+        self.collectionView.register(
+            .init(nibName: "StocksCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: StocksCollectionViewCell.identifier
+        )
+        self.collectionView.register(
+            .init(nibName: "SearchBarCollectionReusableView", bundle: nil),
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SearchBarCollectionReusableView.identifier
+        )
+        self.collectionView.register(
+            .init(nibName: "StocksSegmentCollectionReusableView", bundle: nil),
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: StocksSegmentCollectionReusableView.identifier
+        )
+        self.view.addSubview(self.collectionView)
+        self.collectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(self.appStyle.stocksTable.contentInset)
+        }
+
+        // Refresh control
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.refreshAction), for: .valueChanged)
+        self.collectionView.refreshControl = refreshControl
+        self.collectionView.sendSubviewToBack(refreshControl)
+
+        // Keyboard hide
+        self.view
+            .addGestureRecognizer(UITapGestureRecognizer(
+                target: self,
+                action: #selector(self.stopEditing)
+            ))
+    }
+
+    private func setupDataSource() {
+        self.dataSource = DataSource(
+            collectionView: self.collectionView,
+            cellProvider: { (collectionView, indexPath, stocksInfo) -> UICollectionViewCell? in
+                switch indexPath.section {
+                case 1:
+                    let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: StocksCollectionViewCell.identifier,
+                        for: indexPath
+                    ) as? StocksCollectionViewCell
+                    cell?.configure(
+                        stocksInfo: stocksInfo,
+                        appStyle: self.appStyle
+                    )
+                    return cell
+                default:
+                    return nil
+                }
+            }
+        )
+        self.dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            switch indexPath.section {
+            case 0:
+                switch kind {
+                case UICollectionView.elementKindSectionHeader:
+                    guard
+                        let headerView = collectionView.dequeueReusableSupplementaryView(
+                            ofKind: UICollectionView.elementKindSectionHeader,
+                            withReuseIdentifier: SearchBarCollectionReusableView.identifier,
+                            for: indexPath
+                        ) as? SearchBarCollectionReusableView
+                    else {
+                        preconditionFailure("Failed to load SearchBarCollectionReusableView")
+                    }
+                    headerView.configure(l10n: self.l10n, appStyle: self.appStyle) { cmd in
+                        switch cmd {
+                        case .cancel:
+                            self.presenter.in(.search(nil))
+                            self.view.endEditing(true)
+                        case let .search(text):
+                            self.presenter.in(.search(text))
+                            self.view.endEditing(true)
+                        case .textBeginEditing: break
+                        case let .textChange(text):
+                            self.presenter.in(.search(text))
+                        case .textEndEditing: break
+                        }
+                    }
+                    return headerView
+                default:
+                    break
+                }
+            case 1:
+                switch kind {
+                case UICollectionView.elementKindSectionHeader:
+                    guard
+                        let headerView = collectionView.dequeueReusableSupplementaryView(
+                            ofKind: UICollectionView.elementKindSectionHeader,
+                            withReuseIdentifier: StocksSegmentCollectionReusableView.identifier,
+                            for: indexPath
+                        ) as? StocksSegmentCollectionReusableView
+                    else {
+                        preconditionFailure("Failed to load StocksSegmentCollectionReusableView")
+                    }
+                    headerView.configure(l10n: self.l10n, appStyle: self.appStyle) { cmd in
+                        switch cmd {
+                        case .all:
+                            self.presenter.in(.favourite(false))
+                        case .favourite:
+                            self.presenter.in(.favourite(true))
+                        }
+                    }
+                    return headerView
+                default:
+                    break
+                }
+            default:
+                break
+            }
+
+            return UICollectionReusableView()
+        }
+    }
+
+    // MARK: Actions
+
+    @objc
+    func refreshAction() {
+        self.presenter.in(.refresh)
+    }
+
+    @objc
+    func stopEditing() {
+        self.view.endEditing(true)
+    }
+
+    func applySnapshot(stocksInfos: [StocksInfo], animatingDifferences: Bool = true) {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.searchbar, .stocks])
+        snapshot.appendItems(stocksInfos, toSection: .stocks)
+        self.dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
+    }
 }
 
 // MARK: StocksView
 
 extension StocksViewController: StocksView {
-    
     func show(_ state: StocksState) {
         switch state {
         case .loading:
-            // TODO: Show loading
-            break
+            self.applySnapshot(stocksInfos: [])
         case let .content(stocksInfos):
-            self.stocksInfos = stocksInfos
-            self.collectionView.reloadData()
+            self.applySnapshot(stocksInfos: stocksInfos)
         case let .error(error):
-            // TODO: Show error
-            break
+            self.applySnapshot(stocksInfos: [])
         }
     }
-    
 }
 
-// MARK: UICollectionViewDataSource
+// MARK: UICollectionViewLayout
 
-extension StocksViewController: UICollectionViewDataSource {
+class StocksCollectionViewFlowLayout: UICollectionViewFlowLayout {
+    private let appStyle: AppStyle
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    init(appStyle: AppStyle) {
+        self.appStyle = appStyle
+        super.init()
+        self.setup()
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.stocksInfos.count
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StocksCollectionViewCell", for: indexPath) as! StocksCollectionViewCell
-        cell.configure(stocksInfo: .init(image: UIImage(systemName: "lasso.sparkles"), title: "Title", isFavourite: indexPath.row % 2 == 0, subtitle: "Subtite", price: Float(indexPath.row), priceChange: .init(value: Float(indexPath.row)/10, percoent: Float(indexPath.row)/100)))
-        return cell
+    private func setup() {
+//        self.minimumLineSpacing = CGFloat(self.configuration.minimumLineSpacing)
+//        self.minimumInteritemSpacing = CGFloat(self.configuration.minimumInteritemSpacing)
+//        self.sectionInset = UIEdgeInsets(top: 16, left: 50, bottom: 16, right: 50)
     }
 }
 
 // MARK: UICollectionViewDelegate
 
 extension StocksViewController: UICollectionViewDelegate {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let stocksInfo = self.dataSource?.itemIdentifier(for: indexPath) else {
+            return
+        }
+        self.presenter.in(.stockSelected(stocksInfo))
+    }
+}
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: Show next screen
+// MARK: UICollectionViewDelegateFlowLayout
+
+extension StocksViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout _: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        switch section {
+        case 0:
+            return CGSize(
+                width: collectionView.bounds.size.width,
+                height: self.appStyle.searchBar.height
+            )
+        case 1:
+            return CGSize(
+                width: collectionView.bounds.size.width,
+                height: self.appStyle.segmentControl.height
+            )
+        default:
+            return .zero
+        }
     }
 }
