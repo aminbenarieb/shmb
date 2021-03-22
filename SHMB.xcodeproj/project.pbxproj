@@ -30,6 +30,7 @@
 		FC56FE2C2608C3A70029B659 /* l10n.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC01CBF826061EF900B865D9 /* l10n.strings */; };
 		FC56FE362608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */; };
 		FC56FE372608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */; };
+		FC56FE41260908490029B659 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE40260908490029B659 /* WebClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		FC01CC482608AB9000B865D9 /* SearchBarCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarCollectionReusableView.xib; sourceTree = "<group>"; };
 		FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksSegmentCollectionReusableView.swift; sourceTree = "<group>"; };
 		FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksSegmentCollectionReusableView.xib; sourceTree = "<group>"; };
+		FC56FE40260908490029B659 /* WebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 				FC01CB7B260613DA00B865D9 /* ViewController.swift */,
 				FC01CBEC26061A6500B865D9 /* L10n.swift */,
 				FC01CC2926071B3700B865D9 /* Style.swift */,
+				FC56FE40260908490029B659 /* WebClient.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				FC01CB7C260613DA00B865D9 /* ViewController.swift in Sources */,
 				FC01CB78260613DA00B865D9 /* AppDelegate.swift in Sources */,
 				FC01CC18260633C300B865D9 /* StocksInfo.swift in Sources */,
+				FC56FE41260908490029B659 /* WebClient.swift in Sources */,
 				FC01CBED26061A6500B865D9 /* L10n.swift in Sources */,
 				FC01CBD8260619FB00B865D9 /* StocksViewController.swift in Sources */,
 				FC01CC2A26071B3700B865D9 /* Style.swift in Sources */,
@@ -726,7 +730,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cellyai.SHMB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amin.benarieb.SHMB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -746,7 +750,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cellyai.SHMB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amin.benarieb.SHMB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

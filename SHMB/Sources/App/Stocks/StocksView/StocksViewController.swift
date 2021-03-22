@@ -23,8 +23,9 @@ class StocksViewController: UIViewController {
         self.appStyle = serviceProvider.appStyle
         self.l10n = serviceProvider.l10n
         super.init(nibName: nil, bundle: nil)
-        self.presenter = .init(view: self)
+        self.presenter = .init(view: self, serviceProvider: serviceProvider)
         self.setupUI()
+        self.setupDataSource()
     }
 
     @available(*, unavailable)
@@ -34,7 +35,7 @@ class StocksViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupDataSource()
+        self.presenter.in(.viewDidLoad)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,16 +45,6 @@ class StocksViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        if
-            let flowLayout = self.collectionView
-            .collectionViewLayout as? UICollectionViewFlowLayout
-        {
-            flowLayout.itemSize = CGSize(
-                width: self.collectionView.bounds.width,
-                height: CGFloat(self.appStyle.cell.height)
-            )
-        }
     }
 
     // MARK: Setup
@@ -72,7 +63,7 @@ class StocksViewController: UIViewController {
 
         // Collection View
         let layout =
-            StocksCollectionViewFlowLayout(appStyle: self.appStyle)
+            UICollectionViewFlowLayout()
         layout.sectionHeadersPinToVisibleBounds = true
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         self.collectionView.backgroundColor = .clear
@@ -125,7 +116,12 @@ class StocksViewController: UIViewController {
                     cell?.configure(
                         stocksInfo: stocksInfo,
                         appStyle: self.appStyle
-                    )
+                    ) { cmd in
+                        switch cmd {
+                        case let .toggleFavourite(stocksInfo):
+                            self.presenter.in(.stockToggledFavourite(stocksInfo))
+                        }
+                    }
                     return cell
                 default:
                     return nil
@@ -149,14 +145,14 @@ class StocksViewController: UIViewController {
                     headerView.configure(l10n: self.l10n, appStyle: self.appStyle) { cmd in
                         switch cmd {
                         case .cancel:
-                            self.presenter.in(.search(nil))
+                            self.presenter.in(.filter(nil))
                             self.view.endEditing(true)
                         case let .search(text):
-                            self.presenter.in(.search(text))
+                            self.presenter.in(.filter(text))
                             self.view.endEditing(true)
                         case .textBeginEditing: break
                         case let .textChange(text):
-                            self.presenter.in(.search(text))
+                            self.presenter.in(.filter(text))
                         case .textEndEditing: break
                         }
                     }
@@ -179,9 +175,9 @@ class StocksViewController: UIViewController {
                     headerView.configure(l10n: self.l10n, appStyle: self.appStyle) { cmd in
                         switch cmd {
                         case .all:
-                            self.presenter.in(.favourite(false))
+                            self.presenter.in(.toggleFavourite(false))
                         case .favourite:
-                            self.presenter.in(.favourite(true))
+                            self.presenter.in(.toggleFavourite(true))
                         }
                     }
                     return headerView
@@ -223,34 +219,30 @@ extension StocksViewController: StocksView {
         switch state {
         case .loading:
             self.applySnapshot(stocksInfos: [])
-        case let .content(stocksInfos):
-            self.applySnapshot(stocksInfos: stocksInfos)
+        case let .main(content):
+            switch content {
+            case let .all(stocksInfos):
+                self.applySnapshot(stocksInfos: stocksInfos)
+            case let .searching(stocksInfos, _):
+                self.applySnapshot(stocksInfos: stocksInfos)
+            case let .empty(searchQuery):
+                // TODO: Empty view
+                self.applySnapshot(stocksInfos: [])
+            }
+        case let .favourite(content):
+            switch content {
+            case let .all(stocksInfos):
+                self.applySnapshot(stocksInfos: stocksInfos)
+            case let .searching(stocksInfos, _):
+                self.applySnapshot(stocksInfos: stocksInfos)
+            case let .empty(searchQuery):
+                // TODO: Empty view
+                self.applySnapshot(stocksInfos: [])
+            }
         case let .error(error):
+            // TODO: Error view
             self.applySnapshot(stocksInfos: [])
         }
-    }
-}
-
-// MARK: UICollectionViewLayout
-
-class StocksCollectionViewFlowLayout: UICollectionViewFlowLayout {
-    private let appStyle: AppStyle
-
-    init(appStyle: AppStyle) {
-        self.appStyle = appStyle
-        super.init()
-        self.setup()
-    }
-
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setup() {
-//        self.minimumLineSpacing = CGFloat(self.configuration.minimumLineSpacing)
-//        self.minimumInteritemSpacing = CGFloat(self.configuration.minimumInteritemSpacing)
-//        self.sectionInset = UIEdgeInsets(top: 16, left: 50, bottom: 16, right: 50)
     }
 }
 
@@ -268,6 +260,17 @@ extension StocksViewController: UICollectionViewDelegate {
 // MARK: UICollectionViewDelegateFlowLayout
 
 extension StocksViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _: UICollectionView,
+        layout _: UICollectionViewLayout,
+        sizeForItemAt _: IndexPath
+    ) -> CGSize {
+        CGSize(
+            width: self.collectionView.bounds.width,
+            height: CGFloat(self.appStyle.cell.height)
+        )
+    }
+
     func collectionView(
         _ collectionView: UICollectionView,
         layout _: UICollectionViewLayout,

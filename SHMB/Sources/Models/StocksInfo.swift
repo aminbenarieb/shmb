@@ -15,14 +15,21 @@ struct StocksInfo {
     let currency: String
 }
 
-extension StocksInfo: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-    }
-
-    static func == (lhs: StocksInfo, rhs: StocksInfo) -> Bool {
-        lhs.id == rhs.id
-    }
-}
+extension StocksInfo: Hashable {}
 
 extension StocksInfo.PriceChangeInfo: Hashable {}
+
+extension StocksInfo {
+    func copy(isFavourite: Bool) -> StocksInfo {
+        return .init(
+            id: self.id,
+            imageURL: self.imageURL,
+            title: self.title,
+            isFavourite: isFavourite,
+            subtitle: self.subtitle,
+            price: self.price,
+            priceChange: self.priceChange,
+            currency: self.currency
+        )
+    }
+}

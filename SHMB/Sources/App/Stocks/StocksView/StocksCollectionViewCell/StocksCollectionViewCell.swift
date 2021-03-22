@@ -18,6 +18,11 @@ class StocksCollectionViewCell: UICollectionViewCell {
     @IBOutlet
     private var priceChangeLabel: UILabel!
 
+    private var stocksInfo: StocksInfo?
+    private var out: Out?; typealias Out = (Cmd) -> Void; enum Cmd {
+        case toggleFavourite(StocksInfo)
+    }
+
     // MARK: View life cycle
 
     override func awakeFromNib() {
@@ -27,8 +32,10 @@ class StocksCollectionViewCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.stocksInfo = nil
         self.imageView.image = nil
         self.favouriteButton.setImage(nil, for: .normal)
+        self.favouriteButton.tintColor = .clear
         self.titleLabel.text = nil
         self.subtitleLabel.text = nil
         self.priceLabel.text = nil
@@ -45,11 +52,16 @@ class StocksCollectionViewCell: UICollectionViewCell {
 
     func configure(
         stocksInfo: StocksInfo,
-        appStyle: AppStyle
+        appStyle: AppStyle,
+        out: Out?
     ) {
+        self.stocksInfo = stocksInfo
+        self.out = out
+
         // Image
         // TODO: Load image asyncly
         // self.imageView.image = stocksInfo.image
+        self.imageView.backgroundColor = appStyle.cell.imageStyle.placeholderColor
         self.imageView.layer.masksToBounds = true
         self.imageView.layer.cornerRadius = appStyle.cell.imageStyle.cornerRadious
 
@@ -128,5 +140,8 @@ class StocksCollectionViewCell: UICollectionViewCell {
     // MARK: Actions
 
     @IBAction
-    private func favouriteAction(_: Any) {}
+    private func favouriteAction(_: Any) {
+        guard let stocksInfo = self.stocksInfo else { return }
+        self.out?(.toggleFavourite(stocksInfo))
+    }
 }

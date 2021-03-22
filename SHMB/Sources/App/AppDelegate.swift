@@ -8,7 +8,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         let appStyle = AppWhiteStyle()
-        let serviceProvider = ServiceProviderImpl(l10n: L10nImpl(), appStyle: appStyle)
+        let serviceProvider = ServiceProviderImpl(
+            webClient: WebClientFakeImpl(),
+            l10n: L10nImpl(),
+            appStyle: appStyle
+        )
         let stoksViewController = StocksViewController(
             serviceProvider: serviceProvider
         )

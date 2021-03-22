@@ -8,6 +8,7 @@ struct LabelStyle {
 
 struct ImageStyle {
     let cornerRadious: CGFloat
+    let placeholderColor: UIColor
 }
 
 struct CellStyle {
@@ -99,7 +100,7 @@ struct AppWhiteStyle: AppStyle {
     var cell = CellStyle(
         height: 68,
         cornerRadius: 16,
-        imageStyle: ImageStyle(cornerRadious: 12),
+        imageStyle: ImageStyle(cornerRadious: 12, placeholderColor: .lightGray),
         favouriteButtonNormal: UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1),
         favouriteButtonSelected: UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1),
         titleLabel: LabelStyle(
