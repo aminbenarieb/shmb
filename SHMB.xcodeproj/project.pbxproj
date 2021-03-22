@@ -31,6 +31,8 @@
 		FC56FE362608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */; };
 		FC56FE372608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */; };
 		FC56FE41260908490029B659 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE40260908490029B659 /* WebClient.swift */; };
+		FC56FE48260921DF0029B659 /* StocksErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE47260921DF0029B659 /* StocksErrorView.swift */; };
+		FC56FE50260922830029B659 /* StocksErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE4F260922830029B659 /* StocksErrorView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,8 @@
 		FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksSegmentCollectionReusableView.swift; sourceTree = "<group>"; };
 		FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksSegmentCollectionReusableView.xib; sourceTree = "<group>"; };
 		FC56FE40260908490029B659 /* WebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
+		FC56FE47260921DF0029B659 /* StocksErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksErrorView.swift; sourceTree = "<group>"; };
+		FC56FE4F260922830029B659 /* StocksErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksErrorView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +258,8 @@
 			children = (
 				FC01CC0F2606339D00B865D9 /* StocksView.swift */,
 				FC01CBD6260619FB00B865D9 /* StocksViewController.swift */,
+				FC56FE46260921BC0029B659 /* StocksEmptyView */,
+				FC56FE45260921B20029B659 /* StocksErrorView */,
 				FC56FE332608CA920029B659 /* StocksSegmentCollectionReusableView */,
 				FC01CC462608AB6500B865D9 /* SearchBarCollectionReusableView */,
 				FC01CC0E2606337500B865D9 /* StocksCollectionViewCell */,
@@ -286,6 +292,22 @@
 				FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */,
 			);
 			path = StocksSegmentCollectionReusableView;
+			sourceTree = "<group>";
+		};
+		FC56FE45260921B20029B659 /* StocksErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				FC56FE47260921DF0029B659 /* StocksErrorView.swift */,
+				FC56FE4F260922830029B659 /* StocksErrorView.xib */,
+			);
+			path = StocksErrorView;
+			sourceTree = "<group>";
+		};
+		FC56FE46260921BC0029B659 /* StocksEmptyView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StocksEmptyView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -402,6 +424,7 @@
 				FC01CB84260613DC00B865D9 /* LaunchScreen.storyboard in Resources */,
 				FC01CC4A2608AB9000B865D9 /* SearchBarCollectionReusableView.xib in Resources */,
 				FC01CB81260613DC00B865D9 /* Assets.xcassets in Resources */,
+				FC56FE50260922830029B659 /* StocksErrorView.xib in Resources */,
 				FC01CBE826061A2200B865D9 /* StocksCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,6 +557,7 @@
 				FC01CC102606339D00B865D9 /* StocksView.swift in Sources */,
 				FC01CBC62606190500B865D9 /* ServiceProvider.swift in Sources */,
 				FC01CBE726061A2200B865D9 /* StocksCollectionViewCell.swift in Sources */,
+				FC56FE48260921DF0029B659 /* StocksErrorView.swift in Sources */,
 				FC01CC022606310400B865D9 /* StocksPresenter.swift in Sources */,
 				FC01CB7C260613DA00B865D9 /* ViewController.swift in Sources */,
 				FC01CB78260613DA00B865D9 /* AppDelegate.swift in Sources */,

@@ -61,6 +61,7 @@ struct StocksTableStyle {
 protocol AppStyle {
     var stocksTable: StocksTableStyle { get }
     var backgroundColor: UIColor { get }
+    var tintColor: UIColor { get }
 
     var navigationTintColor: UIColor { get }
 
@@ -81,6 +82,7 @@ struct AppWhiteStyle: AppStyle {
     var stocksTable =
         StocksTableStyle(contentInset: .init(top: 16, left: 16, bottom: 16, right: 16))
     var backgroundColor = UIColor.white
+    var tintColor = UIColor(red: 20, green: 20, blue: 255, alpha: 1)
     var navigationTintColor = UIColor.white
     var navigationTitleColor = UIColor.white
     var navigationBarTintColor = UIColor.white
