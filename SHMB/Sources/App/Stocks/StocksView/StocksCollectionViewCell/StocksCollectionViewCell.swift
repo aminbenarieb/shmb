@@ -1,3 +1,4 @@
+import Combine
 import UIKit
 
 class StocksCollectionViewCell: UICollectionViewCell {
@@ -18,6 +19,7 @@ class StocksCollectionViewCell: UICollectionViewCell {
     @IBOutlet
     private var priceChangeLabel: UILabel!
 
+    private var set = Set<AnyCancellable>()
     private var stocksInfo: StocksInfo?
     private var out: Out?; typealias Out = (Cmd) -> Void; enum Cmd {
         case toggleFavourite(StocksInfo)
@@ -60,7 +62,15 @@ class StocksCollectionViewCell: UICollectionViewCell {
 
         // Image
         // TODO: Load image asyncly
-        // self.imageView.image = stocksInfo.image
+        if let url = stocksInfo.imageURL {
+            WebClientFakeImpl(environment: Environment(keyValueStorage: [:])).image(url: url)
+                .sink { _ in
+
+                } receiveValue: { [weak self] r in
+                    self?.imageView.image = r.value
+                }
+                .store(in: &self.set)
+        }
         self.imageView.backgroundColor = appStyle.cell.imageStyle.placeholderColor
         self.imageView.layer.masksToBounds = true
         self.imageView.layer.cornerRadius = appStyle.cell.imageStyle.cornerRadious

@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import UIKit
 
 struct WebClientResponse<T> {
     let value: T
@@ -8,6 +9,7 @@ struct WebClientResponse<T> {
 
 protocol WebClient {
     func stocks() -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error>
+    func image(url: URL) -> AnyPublisher<WebClientResponse<UIImage?>, Error>
 }
 
 struct WebClientConfiguration {
@@ -22,6 +24,10 @@ class WebClientImpl: WebClient {
 
     func stocks() -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error> {
         self.run(URLRequest(url: self.configuration.stocksURL))
+    }
+
+    func image(url _: URL) -> AnyPublisher<WebClientResponse<UIImage?>, Error> {
+        fatalError("Not implemented")
     }
 
     private func run<T: Decodable>(
@@ -42,27 +48,14 @@ class WebClientImpl: WebClient {
 
 class WebClientFakeImpl: WebClient {
     private let environment: Environment
+
     init(environment: Environment) {
         self.environment = environment
     }
 
     func stocks() -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error> {
         let response = URLResponse()
-        var value = [StocksInfo]()
-        for i in 0..<10 {
-            value.append(
-                StocksInfo(
-                    id: i,
-                    imageURL: nil,
-                    title: "Title \(i)",
-                    isFavourite: i % 2 == 0,
-                    subtitle: "Subtitle \(i)",
-                    price: Float(i) * 10,
-                    priceChange: .init(value: Float(i), percent: Float(i) / 100),
-                    currency: "$"
-                )
-            )
-        }
+        let value = self.mockedData()
         if let errorMessage = self.environment.webMockedError {
             return Fail(error: NSError(
                 domain: "com.aminbenarieb.SHMB",
@@ -71,13 +64,103 @@ class WebClientFakeImpl: WebClient {
             ))
                 .eraseToAnyPublisher()
         }
-        let publisher = Just(WebClientResponse(value: value, response: response))
+        return Just(WebClientResponse(value: value, response: response))
             .setFailureType(to: Error.self)
-        if let delay = self.environment.webMockedDelay {
-            return publisher
-                .delay(for: .seconds(delay), scheduler: RunLoop.main)
-                .eraseToAnyPublisher()
-        }
-        return publisher.eraseToAnyPublisher()
+            .delay(for: .seconds(self.environment.webMockedDelay ?? 0), scheduler: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
+
+    func image(url: URL) -> AnyPublisher<WebClientResponse<UIImage?>, Error> {
+        let response = URLResponse()
+        let value = UIImage(named: url.lastPathComponent)
+        return Just(WebClientResponse(value: value, response: response))
+            .setFailureType(to: Error.self)
+            .delay(for: .seconds(self.environment.webMockedDelay ?? 0), scheduler: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
+
+    private func mockedData() -> [StocksInfo] {
+        return [
+            StocksInfo(
+                id: 0,
+                imageURL: URL(string: "https://fake.mocked/YNDX.pdf"),
+                title: "YNDX",
+                isFavourite: false,
+                subtitle: "Yandex, LLC",
+                price: 4764.6,
+                priceChange: .init(value: 55, percent: 0.0115),
+                currency: "Р"
+            ),
+            StocksInfo(
+                id: 2,
+                imageURL: URL(string: "https://fake.mocked/AAPL.pdf"),
+                title: "AAPL",
+                isFavourite: true,
+                subtitle: "Apple Inc.",
+                price: 131.93,
+                priceChange: .init(value: 0.12, percent: 0.0115),
+                currency: "$"
+            ),
+            StocksInfo(
+                id: 3,
+                imageURL: URL(string: "https://fake.mocked/GOOGL.pdf"),
+                title: "GOOGL",
+                isFavourite: true,
+                subtitle: "Alphabet Class A",
+                price: 1825,
+                priceChange: .init(value: 0.12, percent: 0.0115),
+                currency: "$"
+            ),
+            StocksInfo(
+                id: 4,
+                imageURL: URL(string: "https://fake.mocked/AMZN.pdf"),
+                title: "AMZN",
+                isFavourite: true,
+                subtitle: "Amazon.com",
+                price: 3204,
+                priceChange: .init(value: -0.12, percent: 0.0115),
+                currency: "$"
+            ),
+            StocksInfo(
+                id: 5,
+                imageURL: URL(string: "https://fake.mocked/BAC.pdf"),
+                title: "BAC",
+                isFavourite: true,
+                subtitle: "Bank of America Corp",
+                price: 3204,
+                priceChange: .init(value: 0.12, percent: 0.0115),
+                currency: "$"
+            ),
+            StocksInfo(
+                id: 6,
+                imageURL: URL(string: "https://fake.mocked/MSFT.pdf"),
+                title: "MSFT",
+                isFavourite: true,
+                subtitle: "Microsoft Corporation",
+                price: 3204,
+                priceChange: .init(value: 0.12, percent: 0.0115),
+                currency: "$"
+            ),
+            StocksInfo(
+                id: 7,
+                imageURL: URL(string: "https://fake.mocked/TSLA.pdf"),
+                title: "TSLA",
+                isFavourite: true,
+                subtitle: "Tesla Motors",
+                price: 3204,
+                priceChange: .init(value: 0.12, percent: 0.0115),
+                currency: "$"
+            ),
+            StocksInfo(
+                id: 8,
+                imageURL: URL(string: "https://fake.mocked/MA.pdf"),
+                title: "MA",
+                isFavourite: true,
+                subtitle: "Mastercard",
+                price: 3204,
+                priceChange: .init(value: 0.12, percent: 0.0115),
+                currency: "$"
+            ),
+        ]
     }
 }

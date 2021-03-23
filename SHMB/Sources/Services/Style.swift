@@ -106,19 +106,19 @@ struct AppWhiteStyle: AppStyle {
         favouriteButtonNormal: UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1),
         favouriteButtonSelected: UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1),
         titleLabel: LabelStyle(
-            font: AppWhiteStyle.font(name: "Montserrat-Bold", size: 18),
+            font: AppWhiteStyle.font(name: "Montserrat", size: 18, weight: .bold),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         ),
         subtitleLabel: LabelStyle(
-            font: AppWhiteStyle.font(name: "Montserrat-SemiBold", size: 12),
+            font: AppWhiteStyle.font(name: "Montserrat", size: 12, weight: .bold),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         ),
         priceLabel: LabelStyle(
-            font: AppWhiteStyle.font(name: "Montserrat-SemiBold", size: 18),
+            font: AppWhiteStyle.font(name: "Montserrat", size: 18, weight: .semibold),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         ),
         changeLabel: LabelStyle(
-            font: AppWhiteStyle.font(name: "Montserrat-SemiBold", size: 12),
+            font: AppWhiteStyle.font(name: "Montserrat", size: 12, weight: .semibold),
             color: UIColor(red: 0.14, green: 0.7, blue: 0.364, alpha: 1)
         ),
         evenBackgroundColor: UIColor.white,
@@ -126,10 +126,10 @@ struct AppWhiteStyle: AppStyle {
         contentInset: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 12)
     )
 
-    static func font(name: String, size: CGFloat) -> UIFont {
+    static func font(name: String, size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
         guard let font = UIFont(name: name, size: size) else {
             os_log(.error, "Unable to find font with name `%s`.", name)
-            return UIFont.systemFont(ofSize: size)
+            return UIFont.systemFont(ofSize: size, weight: weight)
         }
         return font
     }
