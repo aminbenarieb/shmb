@@ -53,18 +53,33 @@ class StocksPresenter {
                     self.data = response.value
                 }
         case .stockSelected:
+            // TODO: Show detail stocks screen
             break
         case .refresh:
+            // TODO: Refresh stocks
             break
         case let .stockToggledFavourite(stocksInfo):
-//            TODO:
-//            self.data = self.data.map {
-//                guard $0.id == stocksInfo.id else {
-//                    return $0
-//                }
-//                return stocksInfo.copy(isFavourite: !stocksInfo.isFavourite)
-//            }
-            break
+            switch self.state {
+            case .main:
+                self.data = self.data.map {
+                    guard $0.id == stocksInfo.id else {
+                        return $0
+                    }
+                    return stocksInfo.copy(isFavourite: !stocksInfo.isFavourite)
+                }
+                self.state = .main(.all(self.data))
+            case .favourite:
+                self.data = self.data.map {
+                    guard $0.id == stocksInfo.id else {
+                        return $0
+                    }
+                    return stocksInfo.copy(isFavourite: !stocksInfo.isFavourite)
+                }
+                self.state = .favourite(self.filtered(favourite: true))
+            case .error,
+                 .loading:
+                break
+            }
         case let .filter(text):
             switch self.state {
             case .main:
