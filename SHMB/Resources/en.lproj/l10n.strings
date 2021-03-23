@@ -8,6 +8,7 @@
 "screen.stocks.detail.button.1y" = "1Y";
 "screen.stocks.detail.button.all" = "All";
 "screen.stocks_detail.button.buy" = "Buy for %@";
-"error" = "Error 😓: %@ "
-"empty_search" = "Nothing found for the query '%@' 😓"
-"empty" = "No data yet 🙃"
+"error" = "Error 😓: %@ ";
+"empty_search" = "Nothing found for the query '%@' 😓";
+"empty" = "No data yet 🙃";
+"loading" = "Loading data ⏳...";

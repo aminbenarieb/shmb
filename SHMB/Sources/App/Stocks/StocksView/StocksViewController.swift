@@ -1,3 +1,4 @@
+import os.log
 import SnapKit
 import UIKit
 
@@ -219,29 +220,74 @@ extension StocksViewController: StocksView {
         switch state {
         case .loading:
             self.applySnapshot(stocksInfos: [])
+            do {
+                let view: StocksLoadingView = try StocksLoadingView.fromNib()
+                view.configure(appStyle: self.appStyle, l10n: self.l10n)
+                self.collectionView.backgroundView = view
+            }
+            catch let viewError {
+                assert(false, viewError.localizedDescription)
+                os_log(.debug, "Error %@", viewError.localizedDescription)
+            }
         case let .main(content):
             switch content {
             case let .all(stocksInfos):
                 self.applySnapshot(stocksInfos: stocksInfos)
+                self.collectionView.backgroundView = nil
             case let .searching(stocksInfos, _):
                 self.applySnapshot(stocksInfos: stocksInfos)
+                self.collectionView.backgroundView = nil
             case let .empty(searchQuery):
-                // TODO: Empty view
                 self.applySnapshot(stocksInfos: [])
+                do {
+                    let view: StocksEmptyView = try StocksEmptyView.fromNib()
+                    view.configure(
+                        appStyle: self.appStyle,
+                        l10n: self.l10n,
+                        searchQuery: searchQuery
+                    )
+                    self.collectionView.backgroundView = view
+                }
+                catch let viewError {
+                    assert(false, viewError.localizedDescription)
+                    os_log(.debug, "Error %@", viewError.localizedDescription)
+                }
             }
         case let .favourite(content):
             switch content {
             case let .all(stocksInfos):
                 self.applySnapshot(stocksInfos: stocksInfos)
+                self.collectionView.backgroundView = nil
             case let .searching(stocksInfos, _):
                 self.applySnapshot(stocksInfos: stocksInfos)
+                self.collectionView.backgroundView = nil
             case let .empty(searchQuery):
-                // TODO: Empty view
                 self.applySnapshot(stocksInfos: [])
+                do {
+                    let view: StocksEmptyView = try StocksEmptyView.fromNib()
+                    view.configure(
+                        appStyle: self.appStyle,
+                        l10n: self.l10n,
+                        searchQuery: searchQuery
+                    )
+                    self.collectionView.backgroundView = view
+                }
+                catch let viewError {
+                    assert(false, viewError.localizedDescription)
+                    os_log(.debug, "Error %@", viewError.localizedDescription)
+                }
             }
         case let .error(error):
-            // TODO: Error view
             self.applySnapshot(stocksInfos: [])
+            do {
+                let view: StocksErrorView = try StocksErrorView.fromNib()
+                view.configure(appStyle: self.appStyle, l10n: self.l10n, error: error)
+                self.collectionView.backgroundView = view
+            }
+            catch let viewError {
+                assert(false, viewError.localizedDescription)
+                os_log(.debug, "Error %@", viewError.localizedDescription)
+            }
         }
     }
 }

@@ -11,7 +11,10 @@ enum L10nKey: String {
     case screen_stocks_detail_button_1y = "screen.stocks.detail.button_1y"
     case screen_stocks_detail_button_all = "screen.stocks.detail.button_all"
     case screen_stocks_detail_button_buy = "screen.stocks.detail.button_buy"
+    case empty_search
+    case empty
     case error
+    case loading
 }
 
 protocol L10n {

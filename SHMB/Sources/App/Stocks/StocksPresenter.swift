@@ -8,6 +8,9 @@ class StocksPresenter {
     private var state: StocksState {
         didSet {
             os_log(.debug, "State -> %s", String(describing: self.state))
+            DispatchQueue.main.async {
+                self.view?.show(self.state)
+            }
         }
     }
 
@@ -34,8 +37,11 @@ class StocksPresenter {
             break
         case .viewWillAppear:
             self.data = self.webClient.stocks()
-            self.state = .main(.all(self.data))
-            self.view?.show(self.state)
+            self.state = .loading
+
+            DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
+                self.state = .main(.all(self.data))
+            }
         case .stockSelected:
             break
         case .refresh:
@@ -59,7 +65,6 @@ class StocksPresenter {
                  .loading:
                 break
             }
-            self.view?.show(self.state)
         case let .toggleFavourite(onlyFavourites):
             switch self.state {
             case let .main(content):
@@ -86,7 +91,6 @@ class StocksPresenter {
                  .loading:
                 break
             }
-            self.view?.show(self.state)
         }
     }
 }

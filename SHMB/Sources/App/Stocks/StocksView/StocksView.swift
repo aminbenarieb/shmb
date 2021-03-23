@@ -4,7 +4,7 @@ enum StocksState {
     enum Content {
         case all([StocksInfo])
         case searching([StocksInfo], String)
-        case empty(String)
+        case empty(String?)
     }
 
     case loading
