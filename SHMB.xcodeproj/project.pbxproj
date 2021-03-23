@@ -11,7 +11,6 @@
 		D262716EFA55AE5396CDEF81 /* Pods_SHMBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E145FBDBDEAA02574E86CE2C /* Pods_SHMBTests.framework */; };
 		DDE9A48105B2EF9EA3482D85 /* Pods_SHMB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41410CE1433BFA03A4E7EF49 /* Pods_SHMB.framework */; };
 		FC01CB78260613DA00B865D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CB77260613DA00B865D9 /* AppDelegate.swift */; };
-		FC01CB7C260613DA00B865D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CB7B260613DA00B865D9 /* ViewController.swift */; };
 		FC01CB81260613DC00B865D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC01CB80260613DC00B865D9 /* Assets.xcassets */; };
 		FC01CB84260613DC00B865D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC01CB82260613DC00B865D9 /* LaunchScreen.storyboard */; };
 		FC01CB8F260613DC00B865D9 /* SHMBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CB8E260613DC00B865D9 /* SHMBTests.swift */; };
@@ -70,7 +69,6 @@
 		E145FBDBDEAA02574E86CE2C /* Pods_SHMBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SHMBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC01CB74260613DA00B865D9 /* SHMB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHMB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC01CB77260613DA00B865D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FC01CB7B260613DA00B865D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FC01CB80260613DC00B865D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC01CB83260613DC00B865D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC01CB85260613DC00B865D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -219,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				FC01CBC52606190500B865D9 /* ServiceProvider.swift */,
-				FC01CB7B260613DA00B865D9 /* ViewController.swift */,
 				FC01CBEC26061A6500B865D9 /* L10n.swift */,
 				FC01CC2926071B3700B865D9 /* Style.swift */,
 				FC56FE40260908490029B659 /* WebClient.swift */,
@@ -597,7 +594,6 @@
 				FC01CBE726061A2200B865D9 /* StocksCollectionViewCell.swift in Sources */,
 				FC56FE48260921DF0029B659 /* StocksErrorView.swift in Sources */,
 				FC01CC022606310400B865D9 /* StocksPresenter.swift in Sources */,
-				FC01CB7C260613DA00B865D9 /* ViewController.swift in Sources */,
 				FC01CB78260613DA00B865D9 /* AppDelegate.swift in Sources */,
 				FC01CC18260633C300B865D9 /* StocksInfo.swift in Sources */,
 				FC56FE41260908490029B659 /* WebClient.swift in Sources */,
