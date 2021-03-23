@@ -8,5 +8,7 @@ class StocksLoadingView: UIView {
 
     func configure(appStyle _: AppStyle, l10n: L10n) {
         self.label.text = l10n.localized(.loading)
+        self.label.numberOfLines = 0
+        self.label.textAlignment = .center
     }
 }

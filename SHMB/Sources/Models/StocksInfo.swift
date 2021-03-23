@@ -19,6 +19,10 @@ extension StocksInfo: Hashable {}
 
 extension StocksInfo.PriceChangeInfo: Hashable {}
 
+extension StocksInfo: Codable {}
+
+extension StocksInfo.PriceChangeInfo: Codable {}
+
 extension StocksInfo {
     func copy(isFavourite: Bool) -> StocksInfo {
         return .init(

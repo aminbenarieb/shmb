@@ -7,11 +7,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        let environment = Environment(keyValueStorage: ProcessInfo.processInfo.environment)
         let appStyle = AppWhiteStyle()
+        let webClient: WebClient = environment.webMocked
+            ? WebClientFakeImpl(environment: environment)
+            : WebClientImpl(configuration: .init(stocksURL: URL(string: "https://google.com")!))
         let serviceProvider = ServiceProviderImpl(
-            webClient: WebClientFakeImpl(),
+            webClient: webClient,
             l10n: L10nImpl(),
-            appStyle: appStyle
+            appStyle: appStyle,
+            environment: environment
         )
         let stoksViewController = StocksViewController(
             serviceProvider: serviceProvider

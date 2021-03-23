@@ -13,5 +13,7 @@ class StocksEmptyView: UIView {
         case .none:
             self.label.text = l10n.localized(.empty)
         }
+        self.label.numberOfLines = 0
+        self.label.textAlignment = .center
     }
 }

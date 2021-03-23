@@ -14,6 +14,8 @@ class StocksPresenter {
         }
     }
 
+    private var token: Any?
+
     enum In {
         case viewDidLoad
         case viewWillAppear
@@ -36,12 +38,20 @@ class StocksPresenter {
         case .viewDidLoad:
             break
         case .viewWillAppear:
-            self.data = self.webClient.stocks()
             self.state = .loading
-
-            DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
-                self.state = .main(.all(self.data))
-            }
+            self.token = self.webClient.stocks()
+                .sink { [weak self] completion in
+                    guard let self = self else { return }
+                    switch completion {
+                    case let .failure(error):
+                        self.state = .error(error)
+                    case .finished:
+                        self.state = .main(.all(self.data))
+                    }
+                } receiveValue: { [weak self] response in
+                    guard let self = self else { return }
+                    self.data = response.value
+                }
         case .stockSelected:
             break
         case .refresh:

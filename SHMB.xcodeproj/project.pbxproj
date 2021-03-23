@@ -38,6 +38,7 @@
 		FC56FE5D2609E3790029B659 /* StocksEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE5B2609E3790029B659 /* StocksEmptyView.xib */; };
 		FC56FE642609E81C0029B659 /* StocksLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE622609E81C0029B659 /* StocksLoadingView.swift */; };
 		FC56FE652609E81C0029B659 /* StocksLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE632609E81C0029B659 /* StocksLoadingView.xib */; };
+		FC56FE6A260A0C200029B659 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE69260A0C200029B659 /* Environment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		FC56FE5B2609E3790029B659 /* StocksEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksEmptyView.xib; sourceTree = "<group>"; };
 		FC56FE622609E81C0029B659 /* StocksLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksLoadingView.swift; sourceTree = "<group>"; };
 		FC56FE632609E81C0029B659 /* StocksLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksLoadingView.xib; sourceTree = "<group>"; };
+		FC56FE69260A0C200029B659 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 				FC01CBEC26061A6500B865D9 /* L10n.swift */,
 				FC01CC2926071B3700B865D9 /* Style.swift */,
 				FC56FE40260908490029B659 /* WebClient.swift */,
+				FC56FE69260A0C200029B659 /* Environment.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				FC01CC18260633C300B865D9 /* StocksInfo.swift in Sources */,
 				FC56FE41260908490029B659 /* WebClient.swift in Sources */,
 				FC56FE562609E1D70029B659 /* UIView.swift in Sources */,
+				FC56FE6A260A0C200029B659 /* Environment.swift in Sources */,
 				FC01CBED26061A6500B865D9 /* L10n.swift in Sources */,
 				FC01CBD8260619FB00B865D9 /* StocksViewController.swift in Sources */,
 				FC01CC2A26071B3700B865D9 /* Style.swift in Sources */,

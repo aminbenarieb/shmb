@@ -13,6 +13,8 @@ class StocksErrorView: UIView {
     func configure(appStyle: AppStyle, l10n: L10n, error: Error) {
         self.imageView.tintColor = appStyle.tintColor
         self.label.text = l10n.localized(.error, error.localizedDescription)
+        self.label.numberOfLines = 0
+        self.label.textAlignment = .center
         self.button.tintColor = appStyle.tintColor
     }
 }
