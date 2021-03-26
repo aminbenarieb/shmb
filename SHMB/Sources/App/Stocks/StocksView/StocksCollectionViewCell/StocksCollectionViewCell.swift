@@ -132,7 +132,9 @@ class StocksCollectionViewCell: UICollectionViewCell {
                 stocksInfo.priceChange.percent
             )
         }
-        self.priceChangeLabel.textColor = appStyle.cell.changeLabel.color
+        self.priceChangeLabel.textColor = stocksInfo.priceChange.value < 0
+            ? appStyle.cell.changeLabel.negativeColor
+            : appStyle.cell.changeLabel.positiveColor
         self.priceChangeLabel.font = appStyle.cell.changeLabel.font
 
         // Content view

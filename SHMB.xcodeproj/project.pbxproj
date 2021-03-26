@@ -38,6 +38,9 @@
 		FC56FE642609E81C0029B659 /* StocksLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE622609E81C0029B659 /* StocksLoadingView.swift */; };
 		FC56FE652609E81C0029B659 /* StocksLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE632609E81C0029B659 /* StocksLoadingView.xib */; };
 		FC56FE6A260A0C200029B659 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE69260A0C200029B659 /* Environment.swift */; };
+		FC56FE81260DDCE40029B659 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE80260DDCE40029B659 /* Configuration.plist */; };
+		FC56FE86260DDD880029B659 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE85260DDD880029B659 /* Configuration.swift */; };
+		FC56FE8E260E0EC60029B659 /* Finnhub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE8D260E0EC60029B659 /* Finnhub.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +105,9 @@
 		FC56FE622609E81C0029B659 /* StocksLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksLoadingView.swift; sourceTree = "<group>"; };
 		FC56FE632609E81C0029B659 /* StocksLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksLoadingView.xib; sourceTree = "<group>"; };
 		FC56FE69260A0C200029B659 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		FC56FE80260DDCE40029B659 /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
+		FC56FE85260DDD880029B659 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		FC56FE8D260E0EC60029B659 /* Finnhub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finnhub.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +227,7 @@
 				FC01CC2926071B3700B865D9 /* Style.swift */,
 				FC56FE40260908490029B659 /* WebClient.swift */,
 				FC56FE69260A0C200029B659 /* Environment.swift */,
+				FC56FE85260DDD880029B659 /* Configuration.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -229,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				FC01CB85260613DC00B865D9 /* Info.plist */,
+				FC56FE80260DDCE40029B659 /* Configuration.plist */,
 				FC01CBF826061EF900B865D9 /* l10n.strings */,
 				FC01CB80260613DC00B865D9 /* Assets.xcassets */,
 				FC01CB82260613DC00B865D9 /* LaunchScreen.storyboard */,
@@ -251,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				FC01CC17260633C300B865D9 /* StocksInfo.swift */,
+				FC56FE8D260E0EC60029B659 /* Finnhub.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -451,6 +460,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC56FE652609E81C0029B659 /* StocksLoadingView.xib in Resources */,
+				FC56FE81260DDCE40029B659 /* Configuration.plist in Resources */,
 				FC56FE372608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib in Resources */,
 				FC56FE2C2608C3A70029B659 /* l10n.strings in Resources */,
 				FC01CB84260613DC00B865D9 /* LaunchScreen.storyboard in Resources */,
@@ -598,6 +608,8 @@
 				FC01CC18260633C300B865D9 /* StocksInfo.swift in Sources */,
 				FC56FE41260908490029B659 /* WebClient.swift in Sources */,
 				FC56FE562609E1D70029B659 /* UIView.swift in Sources */,
+				FC56FE86260DDD880029B659 /* Configuration.swift in Sources */,
+				FC56FE8E260E0EC60029B659 /* Finnhub.swift in Sources */,
 				FC56FE6A260A0C200029B659 /* Environment.swift in Sources */,
 				FC01CBED26061A6500B865D9 /* L10n.swift in Sources */,
 				FC01CBD8260619FB00B865D9 /* StocksViewController.swift in Sources */,

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>finnhub</key>
+	<dict>
+		<key>baseSocketUrl</key>
+		<string>wss://ws.finnhub.io</string>
+		<key>apiKey</key>
+		<string>c1atein48v6rcdq9sapg</string>
+		<key>baseUrl</key>
+		<string>https://finnhub.io</string>
+	</dict>
+</dict>
+</plist>

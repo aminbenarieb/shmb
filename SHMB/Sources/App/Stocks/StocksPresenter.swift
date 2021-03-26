@@ -81,6 +81,11 @@ class StocksPresenter {
                 break
             }
         case let .filter(text):
+            // TODO: Throttle searching
+            /// Credits: https://stackoverflow.com/questions/24330056/how-to-throttle-search-based-on-typing-speed-in-ios-uisearchbar
+            /// to limit network activity, reload half a second after last key press.
+            // NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(loadSearch), object: nil)
+            // perform(#selector(loadSearch), with: nil, afterDelay: 0.5)
             switch self.state {
             case .main:
                 self.state = .main(self.filtered(text: text))

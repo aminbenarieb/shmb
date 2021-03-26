@@ -6,6 +6,12 @@ struct LabelStyle {
     let color: UIColor
 }
 
+struct PriceChangeLabelStyle {
+    let font: UIFont
+    let positiveColor: UIColor
+    let negativeColor: UIColor
+}
+
 struct ImageStyle {
     let cornerRadious: CGFloat
     let placeholderColor: UIColor
@@ -28,7 +34,7 @@ struct CellStyle {
 
     var priceLabel: LabelStyle
 
-    var changeLabel: LabelStyle
+    var changeLabel: PriceChangeLabelStyle
 
     var evenBackgroundColor: UIColor
 
@@ -117,9 +123,10 @@ struct AppWhiteStyle: AppStyle {
             font: AppWhiteStyle.font(name: "Montserrat", size: 18, weight: .semibold),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         ),
-        changeLabel: LabelStyle(
+        changeLabel: PriceChangeLabelStyle(
             font: AppWhiteStyle.font(name: "Montserrat", size: 12, weight: .semibold),
-            color: UIColor(red: 0.14, green: 0.7, blue: 0.364, alpha: 1)
+            positiveColor: UIColor(red: 0.14, green: 0.7, blue: 0.364, alpha: 1),
+            negativeColor: UIColor(red: 0.7, green: 0.14, blue: 0.14, alpha: 1)
         ),
         evenBackgroundColor: UIColor.white,
         oddBackgroundColor: UIColor(red: 0.941, green: 0.955, blue: 0.97, alpha: 1),
