@@ -1,27 +1,26 @@
 import Foundation
 
 struct StocksInfo {
-    let id: Int
+    let id: String
     let imageURL: URL?
     let title: String
     let isFavourite: Bool
     let subtitle: String
-    let price: Float
-    let priceChange: PriceChangeInfo; struct PriceChangeInfo {
-        let value: Float
-        let percent: Float
+    let price: Double?
+    let priceChange: Double?
+    var priceChangePercent: Double? {
+        guard let priceChange = self.priceChange, let price = self.price else {
+            return nil
+        }
+        return priceChange / price
     }
 
-    let currency: String
+    let currency: String?
 }
 
 extension StocksInfo: Hashable {}
 
-extension StocksInfo.PriceChangeInfo: Hashable {}
-
 extension StocksInfo: Codable {}
-
-extension StocksInfo.PriceChangeInfo: Codable {}
 
 extension StocksInfo {
     func copy(isFavourite: Bool) -> StocksInfo {

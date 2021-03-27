@@ -20,20 +20,18 @@ enum Finnhub {
     }
 
     struct Profile: Codable {
-        var country: String
-        var currency: String
-        var exchange: String
-        var finnhubIndustry: String
-        var ipo: String
         var logo: String?
-        var marketCapitalization: Double
-        var name: String
-        var shareOutstanding: Double
-        var weburl: URL
+        var currency: String?
     }
 
     struct Quote: Codable {
-        var c: Double
-        var pc: Double
+        var c: Double?
+        var pc: Double?
+        var change: Double? {
+            guard let c = self.c, let pc = self.pc else {
+                return nil
+            }
+            return pc / c
+        }
     }
 }

@@ -53,6 +53,7 @@ class StocksCollectionViewCell: UICollectionViewCell {
     // MARK: Configure
 
     func configure(
+        index: Int,
         stocksInfo: StocksInfo,
         appStyle: AppStyle,
         out: Out?
@@ -98,47 +99,61 @@ class StocksCollectionViewCell: UICollectionViewCell {
         currencyFormatter.locale = Locale.current
         currencyFormatter.numberStyle = .currency
         currencyFormatter.maximumFractionDigits = 2
-        if let formattedPrice = currencyFormatter.string(from: stocksInfo.price as NSNumber) {
-            self.priceLabel.text = String(format: "%@", formattedPrice)
+        if let price = stocksInfo.price, let currency = stocksInfo.currency {
+            currencyFormatter.currencyCode = currency
+            if let formattedPrice = currencyFormatter.string(from: price as NSNumber) {
+                self.priceLabel.text = String(format: "%@", formattedPrice)
+            }
+            else {
+                self.priceLabel.text = String(format: "%@%.1lf", currency, price)
+            }
+            self.priceLabel.textColor = appStyle.cell.priceLabel.color
+            self.priceLabel.font = appStyle.cell.priceLabel.font
         }
         else {
-            self.priceLabel.text = String(format: "%@%.1lf", stocksInfo.currency, stocksInfo.price)
+            self.priceLabel.text = nil
         }
-        self.priceLabel.textColor = appStyle.cell.priceLabel.color
-        self.priceLabel.font = appStyle.cell.priceLabel.font
 
         // Price change
         let percentFormatter = NumberFormatter()
         percentFormatter.locale = Locale.current
         percentFormatter.numberStyle = .percent
-        percentFormatter.maximumFractionDigits = 2
+        percentFormatter.maximumFractionDigits = 0
         if
-            let formattedPercent = percentFormatter
-            .string(from: stocksInfo.priceChange.percent as NSNumber),
-            let formattedCurrency = currencyFormatter
-            .string(from: stocksInfo.priceChange.value as NSNumber)
+            let priceChangePercent = stocksInfo.priceChangePercent,
+            let priceChange = stocksInfo.priceChange, let currency = stocksInfo.currency
         {
-            self.priceChangeLabel.text = String(
-                format: "%@ (%@)",
-                formattedCurrency,
-                formattedPercent
-            )
+            if
+                let formattedPercent = percentFormatter
+                .string(from: priceChangePercent as NSNumber),
+                let formattedCurrency = currencyFormatter
+                .string(from: priceChange as NSNumber)
+            {
+                self.priceChangeLabel.text = String(
+                    format: "%@ (%@)",
+                    formattedCurrency,
+                    formattedPercent
+                )
+            }
+            else {
+                self.priceChangeLabel.text = String(
+                    format: "%@%.1lf (%.1lf%%)",
+                    currency,
+                    priceChange,
+                    priceChangePercent
+                )
+            }
+            self.priceChangeLabel.textColor = priceChange < 0
+                ? appStyle.cell.changeLabel.negativeColor
+                : appStyle.cell.changeLabel.positiveColor
+            self.priceChangeLabel.font = appStyle.cell.changeLabel.font
         }
         else {
-            self.priceChangeLabel.text = String(
-                format: "%@%.1lf (%.1lf%%)",
-                stocksInfo.currency,
-                stocksInfo.priceChange.value,
-                stocksInfo.priceChange.percent
-            )
+            self.priceChangeLabel.text = nil
         }
-        self.priceChangeLabel.textColor = stocksInfo.priceChange.value < 0
-            ? appStyle.cell.changeLabel.negativeColor
-            : appStyle.cell.changeLabel.positiveColor
-        self.priceChangeLabel.font = appStyle.cell.changeLabel.font
 
         // Content view
-        self.contentView.backgroundColor = (stocksInfo.id % 2 == 0) ? appStyle.cell
+        self.contentView.backgroundColor = (index % 2 == 0) ? appStyle.cell
             .evenBackgroundColor : appStyle.cell.oddBackgroundColor
         self.contentView.layer.masksToBounds = true
         self.contentView.layer.cornerRadius = CGFloat(appStyle.cell.cornerRadius)

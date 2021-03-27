@@ -115,6 +115,7 @@ class StocksViewController: UIViewController {
                         for: indexPath
                     ) as? StocksCollectionViewCell
                     cell?.configure(
+                        index: indexPath.row,
                         stocksInfo: stocksInfo,
                         appStyle: self.appStyle
                     ) { cmd in
