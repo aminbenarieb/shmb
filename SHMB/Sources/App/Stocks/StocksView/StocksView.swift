@@ -4,13 +4,13 @@ enum StocksState {
     enum Content {
         case all([StocksInfo])
         case searching([StocksInfo], String)
-        case empty(String?)
+        case empty(EmptyInfo)
     }
 
-    case loading
+    case loading(LoadingInfo)
     case main(Content)
     case favourite(Content)
-    case error(Error)
+    case error(ErrorInfo)
 }
 
 protocol StocksView {

@@ -14,11 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let webClient: WebClient = environment.webMocked
                 ? WebClientFakeImpl(environment: environment)
                 : Finnhub.WebClientImpl(configuration: configuration.finnhub)
-            let serviceProvider = ServiceProviderImpl(
+            let serviceProvider = ServiceProviderSingletonImpl(
                 webClient: webClient,
                 l10n: L10nImpl(),
                 appStyle: appStyle,
-                environment: environment
+                environment: environment,
+                persistentStore: PersistentStoreUserDefaultsImpl(userDefaults: .standard)
             )
             let stoksViewController = StocksViewController(
                 serviceProvider: serviceProvider

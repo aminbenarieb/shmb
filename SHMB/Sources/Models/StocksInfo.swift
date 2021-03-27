@@ -1,8 +1,9 @@
 import Foundation
+import UIKit
 
 struct StocksInfo {
     let id: String
-    let imageURL: URL?
+    let image: UIImage?
     let title: String
     let isFavourite: Bool
     let subtitle: String
@@ -20,13 +21,11 @@ struct StocksInfo {
 
 extension StocksInfo: Hashable {}
 
-extension StocksInfo: Codable {}
-
 extension StocksInfo {
     func copy(isFavourite: Bool) -> StocksInfo {
         return .init(
             id: self.id,
-            imageURL: self.imageURL,
+            image: self.image,
             title: self.title,
             isFavourite: isFavourite,
             subtitle: self.subtitle,

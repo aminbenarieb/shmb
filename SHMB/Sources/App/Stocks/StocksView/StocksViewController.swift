@@ -3,13 +3,20 @@ import SnapKit
 import UIKit
 
 class StocksViewController: UIViewController {
-    enum Section {
+    enum Section: Int {
         case searchbar
         case stocks
     }
 
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, StocksInfo>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, StocksInfo>
+    enum Item: Hashable {
+        case stocks(StocksInfo)
+        case error(ErrorInfo)
+        case empty(EmptyInfo)
+        case loading(LoadingInfo)
+    }
+
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
 
     private var presenter: StocksPresenter!
     private let appStyle: AppStyle
@@ -76,6 +83,18 @@ class StocksViewController: UIViewController {
             forCellWithReuseIdentifier: StocksCollectionViewCell.identifier
         )
         self.collectionView.register(
+            .init(nibName: "StocksLoadingCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: StocksLoadingCollectionViewCell.identifier
+        )
+        self.collectionView.register(
+            .init(nibName: "StocksEmptyCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: StocksEmptyCollectionViewCell.identifier
+        )
+        self.collectionView.register(
+            .init(nibName: "StocksErrorCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: StocksErrorCollectionViewCell.identifier
+        )
+        self.collectionView.register(
             .init(nibName: "SearchBarCollectionReusableView", bundle: nil),
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SearchBarCollectionReusableView.identifier
@@ -90,26 +109,29 @@ class StocksViewController: UIViewController {
             make.edges.equalToSuperview().inset(self.appStyle.stocksTable.contentInset)
         }
 
-        // Refresh control
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(self.refreshAction), for: .valueChanged)
-        self.collectionView.refreshControl = refreshControl
-        self.collectionView.sendSubviewToBack(refreshControl)
+        /* Refresh control
+         let refreshControl = UIRefreshControl()
+         refreshControl.addTarget(self, action: #selector(self.refreshAction), for: .valueChanged)
+         self.collectionView.refreshControl = refreshControl
+         self.collectionView.sendSubviewToBack(refreshControl)
+         */
 
         // Keyboard hide
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.stopEditing)
+        )
+        tapGestureRecognizer.cancelsTouchesInView = false
         self.view
-            .addGestureRecognizer(UITapGestureRecognizer(
-                target: self,
-                action: #selector(self.stopEditing)
-            ))
+            .addGestureRecognizer(tapGestureRecognizer)
     }
 
     private func setupDataSource() {
         self.dataSource = DataSource(
             collectionView: self.collectionView,
-            cellProvider: { (collectionView, indexPath, stocksInfo) -> UICollectionViewCell? in
-                switch indexPath.section {
-                case 1:
+            cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+                switch item {
+                case let .stocks(stocksInfo):
                     let cell = collectionView.dequeueReusableCell(
                         withReuseIdentifier: StocksCollectionViewCell.identifier,
                         for: indexPath
@@ -125,8 +147,44 @@ class StocksViewController: UIViewController {
                         }
                     }
                     return cell
-                default:
-                    return nil
+                case let .empty(emptyInfo):
+                    let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: StocksEmptyCollectionViewCell.identifier,
+                        for: indexPath
+                    ) as? StocksEmptyCollectionViewCell
+                    cell?.configure(
+                        appStyle: self.appStyle,
+                        l10n: self.l10n,
+                        emptyInfo: emptyInfo
+                    )
+                    return cell
+                case let .error(errorInfo):
+                    let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: StocksErrorCollectionViewCell.identifier,
+                        for: indexPath
+                    ) as? StocksErrorCollectionViewCell
+                    cell?.configure(
+                        appStyle: self.appStyle,
+                        l10n: self.l10n,
+                        errorInfo: errorInfo
+                    ) { [weak self] cmd in
+                        switch cmd {
+                        case let .tryAgain(errorInfo):
+                            self?.presenter.in(.repeatRequest(errorInfo))
+                        }
+                    }
+                    return cell
+                case let .loading(loadingInfo):
+                    let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: StocksLoadingCollectionViewCell.identifier,
+                        for: indexPath
+                    ) as? StocksLoadingCollectionViewCell
+                    cell?.configure(
+                        appStyle: self.appStyle,
+                        l10n: self.l10n,
+                        loadingInfo: loadingInfo
+                    )
+                    return cell
                 }
             }
         )
@@ -206,10 +264,14 @@ class StocksViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    func applySnapshot(stocksInfos: [StocksInfo], animatingDifferences: Bool = true) {
+    func applySnapshot(items: [Item], animatingDifferences: Bool = true, appending: Bool = false) {
         var snapshot = Snapshot()
         snapshot.appendSections([.searchbar, .stocks])
-        snapshot.appendItems(stocksInfos, toSection: .stocks)
+        if appending, let stocksSnapshot = self.dataSource?.snapshot(for: .stocks) {
+            snapshot.appendItems(stocksSnapshot.items)
+        }
+
+        snapshot.appendItems(items, toSection: .stocks)
         self.dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }
@@ -220,75 +282,27 @@ extension StocksViewController: StocksView {
     func show(_ state: StocksState) {
         switch state {
         case .loading:
-            self.applySnapshot(stocksInfos: [])
-            do {
-                let view: StocksLoadingView = try StocksLoadingView.fromNib()
-                view.configure(appStyle: self.appStyle, l10n: self.l10n)
-                self.collectionView.backgroundView = view
-            }
-            catch let viewError {
-                assert(false, viewError.localizedDescription)
-                os_log(.debug, "Error %@", viewError.localizedDescription)
-            }
+            self.applySnapshot(items: [.loading(LoadingInfo())], appending: true)
         case let .main(content):
             switch content {
             case let .all(stocksInfos):
-                self.applySnapshot(stocksInfos: stocksInfos)
-                self.collectionView.backgroundView = nil
+                self.applySnapshot(items: stocksInfos.map { .stocks($0) })
             case let .searching(stocksInfos, _):
-                self.applySnapshot(stocksInfos: stocksInfos)
-                self.collectionView.backgroundView = nil
-            case let .empty(searchQuery):
-                self.applySnapshot(stocksInfos: [])
-                do {
-                    let view: StocksEmptyView = try StocksEmptyView.fromNib()
-                    view.configure(
-                        appStyle: self.appStyle,
-                        l10n: self.l10n,
-                        searchQuery: searchQuery
-                    )
-                    self.collectionView.backgroundView = view
-                }
-                catch let viewError {
-                    assert(false, viewError.localizedDescription)
-                    os_log(.debug, "Error %@", viewError.localizedDescription)
-                }
+                self.applySnapshot(items: stocksInfos.map { .stocks($0) })
+            case let .empty(emptyInfo):
+                self.applySnapshot(items: [.empty(emptyInfo)])
             }
         case let .favourite(content):
             switch content {
             case let .all(stocksInfos):
-                self.applySnapshot(stocksInfos: stocksInfos)
-                self.collectionView.backgroundView = nil
+                self.applySnapshot(items: stocksInfos.map { .stocks($0) })
             case let .searching(stocksInfos, _):
-                self.applySnapshot(stocksInfos: stocksInfos)
-                self.collectionView.backgroundView = nil
-            case let .empty(searchQuery):
-                self.applySnapshot(stocksInfos: [])
-                do {
-                    let view: StocksEmptyView = try StocksEmptyView.fromNib()
-                    view.configure(
-                        appStyle: self.appStyle,
-                        l10n: self.l10n,
-                        searchQuery: searchQuery
-                    )
-                    self.collectionView.backgroundView = view
-                }
-                catch let viewError {
-                    assert(false, viewError.localizedDescription)
-                    os_log(.debug, "Error %@", viewError.localizedDescription)
-                }
+                self.applySnapshot(items: stocksInfos.map { .stocks($0) })
+            case let .empty(emptyInfo):
+                self.applySnapshot(items: [.empty(emptyInfo)])
             }
-        case let .error(error):
-            self.applySnapshot(stocksInfos: [])
-            do {
-                let view: StocksErrorView = try StocksErrorView.fromNib()
-                view.configure(appStyle: self.appStyle, l10n: self.l10n, error: error)
-                self.collectionView.backgroundView = view
-            }
-            catch let viewError {
-                assert(false, viewError.localizedDescription)
-                os_log(.debug, "Error %@", viewError.localizedDescription)
-            }
+        case let .error(errorInfo):
+            self.applySnapshot(items: [.error(errorInfo)])
         }
     }
 }
@@ -297,10 +311,38 @@ extension StocksViewController: StocksView {
 
 extension StocksViewController: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let stocksInfo = self.dataSource?.itemIdentifier(for: indexPath) else {
+        guard let item = self.dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        self.presenter.in(.stockSelected(stocksInfo))
+        switch item {
+        case let .stocks(stocksInfos):
+            self.presenter.in(.stockSelected(stocksInfos))
+        case .empty,
+             .error,
+             .loading:
+            break
+        }
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay _: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        guard collectionView.isDragging else {
+            return
+        }
+        let numberOfItems = self.dataSource?.collectionView(
+            collectionView,
+            numberOfItemsInSection: indexPath.section
+        )
+        if
+            let numberOfItems = numberOfItems,
+            indexPath.section == Section.stocks.rawValue,
+            indexPath.row == numberOfItems - 1
+        {
+            self.presenter.in(.nextPage)
+        }
     }
 }
 
@@ -310,12 +352,33 @@ extension StocksViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _: UICollectionView,
         layout _: UICollectionViewLayout,
-        sizeForItemAt _: IndexPath
+        sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(
-            width: self.collectionView.bounds.width,
-            height: CGFloat(self.appStyle.cell.height)
-        )
+        // TODO: Calculate cell depending on info
+        switch self.dataSource?.itemIdentifier(for: indexPath) {
+        case .stocks:
+            return CGSize(
+                width: self.collectionView.bounds.width,
+                height: CGFloat(self.appStyle.stocksCell.height)
+            )
+        case .empty:
+            return CGSize(
+                width: self.collectionView.bounds.width,
+                height: CGFloat(self.appStyle.emptyCell.height)
+            )
+        case .error:
+            return CGSize(
+                width: self.collectionView.bounds.width,
+                height: CGFloat(self.appStyle.errorCell.height)
+            )
+        case .loading:
+            return CGSize(
+                width: self.collectionView.bounds.width,
+                height: CGFloat(self.appStyle.loadingCell.height)
+            )
+        case .none:
+            return .zero
+        }
     }
 
     func collectionView(

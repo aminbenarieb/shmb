@@ -74,18 +74,18 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "WEB_MOCKED"
+            key = "SHMB_WEB_MOCKED"
             value = "1"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "WEB_MOCKED_ERROR"
+            key = "SHMB_WEB_MOCKED_ERROR"
             value = "Mocked error"
             isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "WEB_MOCKED_DELAY"
-            value = "3"
+            key = "SHMB_WEB_MOCKED_DELAY"
+            value = "0"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

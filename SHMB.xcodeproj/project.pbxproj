@@ -23,24 +23,40 @@
 		FC01CC022606310400B865D9 /* StocksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC012606310400B865D9 /* StocksPresenter.swift */; };
 		FC01CC102606339D00B865D9 /* StocksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC0F2606339D00B865D9 /* StocksView.swift */; };
 		FC01CC18260633C300B865D9 /* StocksInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC17260633C300B865D9 /* StocksInfo.swift */; };
-		FC01CC2A26071B3700B865D9 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC2926071B3700B865D9 /* Style.swift */; };
+		FC01CC2A26071B3700B865D9 /* AppStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC2926071B3700B865D9 /* AppStyle.swift */; };
 		FC01CC492608AB9000B865D9 /* SearchBarCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CC472608AB9000B865D9 /* SearchBarCollectionReusableView.swift */; };
 		FC01CC4A2608AB9000B865D9 /* SearchBarCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC01CC482608AB9000B865D9 /* SearchBarCollectionReusableView.xib */; };
+		FC0B6CCB260F1FDB00072E13 /* ErrorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0B6CCA260F1FDB00072E13 /* ErrorInfo.swift */; };
+		FC0B6CD0260F1FE300072E13 /* EmptyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0B6CCF260F1FE300072E13 /* EmptyInfo.swift */; };
+		FC0B6CD5260F1FE900072E13 /* LoadingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0B6CD4260F1FE900072E13 /* LoadingInfo.swift */; };
+		FC3375EA260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3375E9260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift */; };
+		FC3375FA260F8B210052DFB6 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3375F9260F8B210052DFB6 /* Atomic.swift */; };
 		FC56FE2C2608C3A70029B659 /* l10n.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC01CBF826061EF900B865D9 /* l10n.strings */; };
 		FC56FE362608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */; };
 		FC56FE372608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */; };
 		FC56FE41260908490029B659 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE40260908490029B659 /* WebClient.swift */; };
-		FC56FE48260921DF0029B659 /* StocksErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE47260921DF0029B659 /* StocksErrorView.swift */; };
-		FC56FE50260922830029B659 /* StocksErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE4F260922830029B659 /* StocksErrorView.xib */; };
+		FC56FE48260921DF0029B659 /* StocksErrorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE47260921DF0029B659 /* StocksErrorCollectionViewCell.swift */; };
+		FC56FE50260922830029B659 /* StocksErrorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE4F260922830029B659 /* StocksErrorCollectionViewCell.xib */; };
 		FC56FE562609E1D70029B659 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE552609E1D70029B659 /* UIView.swift */; };
-		FC56FE5C2609E3790029B659 /* StocksEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE5A2609E3790029B659 /* StocksEmptyView.swift */; };
-		FC56FE5D2609E3790029B659 /* StocksEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE5B2609E3790029B659 /* StocksEmptyView.xib */; };
-		FC56FE642609E81C0029B659 /* StocksLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE622609E81C0029B659 /* StocksLoadingView.swift */; };
-		FC56FE652609E81C0029B659 /* StocksLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE632609E81C0029B659 /* StocksLoadingView.xib */; };
+		FC56FE5C2609E3790029B659 /* StocksEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE5A2609E3790029B659 /* StocksEmptyCollectionViewCell.swift */; };
+		FC56FE5D2609E3790029B659 /* StocksEmptyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE5B2609E3790029B659 /* StocksEmptyCollectionViewCell.xib */; };
+		FC56FE642609E81C0029B659 /* StocksLoadingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE622609E81C0029B659 /* StocksLoadingCollectionViewCell.swift */; };
+		FC56FE652609E81C0029B659 /* StocksLoadingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE632609E81C0029B659 /* StocksLoadingCollectionViewCell.xib */; };
 		FC56FE6A260A0C200029B659 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE69260A0C200029B659 /* Environment.swift */; };
 		FC56FE81260DDCE40029B659 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE80260DDCE40029B659 /* Configuration.plist */; };
 		FC56FE86260DDD880029B659 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE85260DDD880029B659 /* Configuration.swift */; };
 		FC56FE8E260E0EC60029B659 /* Finnhub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE8D260E0EC60029B659 /* Finnhub.swift */; };
+		FCE2ACA9260F574700F33D01 /* SHMB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACA7260F574700F33D01 /* SHMB.xcdatamodeld */; };
+		FCE2ACB6260F6AB200F33D01 /* Stocks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACB3260F6AB200F33D01 /* Stocks+CoreDataProperties.swift */; };
+		FCE2ACB7260F6AB200F33D01 /* Stocks+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACB4260F6AB200F33D01 /* Stocks+CoreDataClass.swift */; };
+		FCE2ACB8260F6AB200F33D01 /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACB5260F6AB200F33D01 /* PersistentStore.swift */; };
+		FCE2ACBD260F6AD500F33D01 /* PersistentStoreCoreDataImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACBC260F6AD500F33D01 /* PersistentStoreCoreDataImpl.swift */; };
+		FCE2ACC3260F6AFE00F33D01 /* WebClientFakeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACC2260F6AFE00F33D01 /* WebClientFakeImpl.swift */; };
+		FCE2ACC8260F6B3800F33D01 /* WebClientFinnhubImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACC7260F6B3800F33D01 /* WebClientFinnhubImpl.swift */; };
+		FCE2ACD4260F6B8100F33D01 /* AppWhiteStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACD3260F6B8100F33D01 /* AppWhiteStyle.swift */; };
+		FCE2ACDA260F6BB200F33D01 /* L10nImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACD9260F6BB200F33D01 /* L10nImpl.swift */; };
+		FCE2ACE0260F6BE500F33D01 /* ServiceProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACDF260F6BE500F33D01 /* ServiceProviderImpl.swift */; };
+		FCE2ACE6260F6C1D00F33D01 /* ConfigurationPlistImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACE5260F6C1C00F33D01 /* ConfigurationPlistImpl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,23 +107,39 @@
 		FC01CC012606310400B865D9 /* StocksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksPresenter.swift; sourceTree = "<group>"; };
 		FC01CC0F2606339D00B865D9 /* StocksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksView.swift; sourceTree = "<group>"; };
 		FC01CC17260633C300B865D9 /* StocksInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksInfo.swift; sourceTree = "<group>"; };
-		FC01CC2926071B3700B865D9 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		FC01CC2926071B3700B865D9 /* AppStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStyle.swift; sourceTree = "<group>"; };
 		FC01CC472608AB9000B865D9 /* SearchBarCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCollectionReusableView.swift; sourceTree = "<group>"; };
 		FC01CC482608AB9000B865D9 /* SearchBarCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarCollectionReusableView.xib; sourceTree = "<group>"; };
+		FC0B6CCA260F1FDB00072E13 /* ErrorInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorInfo.swift; sourceTree = "<group>"; };
+		FC0B6CCF260F1FE300072E13 /* EmptyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInfo.swift; sourceTree = "<group>"; };
+		FC0B6CD4260F1FE900072E13 /* LoadingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingInfo.swift; sourceTree = "<group>"; };
+		FC3375E9260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreUserDefaultsImpl.swift; sourceTree = "<group>"; };
+		FC3375F9260F8B210052DFB6 /* Atomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksSegmentCollectionReusableView.swift; sourceTree = "<group>"; };
 		FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksSegmentCollectionReusableView.xib; sourceTree = "<group>"; };
 		FC56FE40260908490029B659 /* WebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
-		FC56FE47260921DF0029B659 /* StocksErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksErrorView.swift; sourceTree = "<group>"; };
-		FC56FE4F260922830029B659 /* StocksErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksErrorView.xib; sourceTree = "<group>"; };
+		FC56FE47260921DF0029B659 /* StocksErrorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksErrorCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC56FE4F260922830029B659 /* StocksErrorCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksErrorCollectionViewCell.xib; sourceTree = "<group>"; };
 		FC56FE552609E1D70029B659 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		FC56FE5A2609E3790029B659 /* StocksEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksEmptyView.swift; sourceTree = "<group>"; };
-		FC56FE5B2609E3790029B659 /* StocksEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksEmptyView.xib; sourceTree = "<group>"; };
-		FC56FE622609E81C0029B659 /* StocksLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksLoadingView.swift; sourceTree = "<group>"; };
-		FC56FE632609E81C0029B659 /* StocksLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksLoadingView.xib; sourceTree = "<group>"; };
+		FC56FE5A2609E3790029B659 /* StocksEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC56FE5B2609E3790029B659 /* StocksEmptyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksEmptyCollectionViewCell.xib; sourceTree = "<group>"; };
+		FC56FE622609E81C0029B659 /* StocksLoadingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksLoadingCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC56FE632609E81C0029B659 /* StocksLoadingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksLoadingCollectionViewCell.xib; sourceTree = "<group>"; };
 		FC56FE69260A0C200029B659 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		FC56FE80260DDCE40029B659 /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		FC56FE85260DDD880029B659 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FC56FE8D260E0EC60029B659 /* Finnhub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finnhub.swift; sourceTree = "<group>"; };
+		FCE2ACA8260F574700F33D01 /* SHMB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SHMB.xcdatamodel; sourceTree = "<group>"; };
+		FCE2ACB3260F6AB200F33D01 /* Stocks+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stocks+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FCE2ACB4260F6AB200F33D01 /* Stocks+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stocks+CoreDataClass.swift"; sourceTree = "<group>"; };
+		FCE2ACB5260F6AB200F33D01 /* PersistentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
+		FCE2ACBC260F6AD500F33D01 /* PersistentStoreCoreDataImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreCoreDataImpl.swift; sourceTree = "<group>"; };
+		FCE2ACC2260F6AFE00F33D01 /* WebClientFakeImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClientFakeImpl.swift; sourceTree = "<group>"; };
+		FCE2ACC7260F6B3800F33D01 /* WebClientFinnhubImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClientFinnhubImpl.swift; sourceTree = "<group>"; };
+		FCE2ACD3260F6B8100F33D01 /* AppWhiteStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWhiteStyle.swift; sourceTree = "<group>"; };
+		FCE2ACD9260F6BB200F33D01 /* L10nImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10nImpl.swift; sourceTree = "<group>"; };
+		FCE2ACDF260F6BE500F33D01 /* ServiceProviderImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderImpl.swift; sourceTree = "<group>"; };
+		FCE2ACE5260F6C1C00F33D01 /* ConfigurationPlistImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPlistImpl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,12 +254,13 @@
 		FC01CBB1260616F500B865D9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				FC01CBC52606190500B865D9 /* ServiceProvider.swift */,
-				FC01CBEC26061A6500B865D9 /* L10n.swift */,
-				FC01CC2926071B3700B865D9 /* Style.swift */,
-				FC56FE40260908490029B659 /* WebClient.swift */,
+				FCE2ACDE260F6BDD00F33D01 /* ServiceProvider */,
+				FCE2ACD8260F6BA500F33D01 /* L10n */,
+				FCE2ACCC260F6B6D00F33D01 /* AppStyle */,
+				FCE2ACC1260F6AF200F33D01 /* WebClient */,
 				FC56FE69260A0C200029B659 /* Environment.swift */,
-				FC56FE85260DDD880029B659 /* Configuration.swift */,
+				FCE2ACB2260F6AB200F33D01 /* PersitentStore */,
+				FCE2ACE4260F6C0800F33D01 /* Configuration */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -239,6 +272,7 @@
 				FC56FE80260DDCE40029B659 /* Configuration.plist */,
 				FC01CBF826061EF900B865D9 /* l10n.strings */,
 				FC01CB80260613DC00B865D9 /* Assets.xcassets */,
+				FCE2ACA7260F574700F33D01 /* SHMB.xcdatamodeld */,
 				FC01CB82260613DC00B865D9 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
@@ -259,6 +293,9 @@
 			isa = PBXGroup;
 			children = (
 				FC01CC17260633C300B865D9 /* StocksInfo.swift */,
+				FC0B6CCA260F1FDB00072E13 /* ErrorInfo.swift */,
+				FC0B6CCF260F1FE300072E13 /* EmptyInfo.swift */,
+				FC0B6CD4260F1FE900072E13 /* LoadingInfo.swift */,
 				FC56FE8D260E0EC60029B659 /* Finnhub.swift */,
 			);
 			path = Models;
@@ -278,9 +315,9 @@
 			children = (
 				FC01CC0F2606339D00B865D9 /* StocksView.swift */,
 				FC01CBD6260619FB00B865D9 /* StocksViewController.swift */,
-				FC56FE612609E7FD0029B659 /* StocksLoadingView */,
-				FC56FE46260921BC0029B659 /* StocksEmptyView */,
-				FC56FE45260921B20029B659 /* StocksErrorView */,
+				FC56FE612609E7FD0029B659 /* StocksLoadingCollectionViewCell */,
+				FC56FE46260921BC0029B659 /* StocksEmptyCollectionViewCell */,
+				FC56FE45260921B20029B659 /* StocksErrorCollectionViewCell */,
 				FC56FE332608CA920029B659 /* StocksSegmentCollectionReusableView */,
 				FC01CC462608AB6500B865D9 /* SearchBarCollectionReusableView */,
 				FC01CC0E2606337500B865D9 /* StocksCollectionViewCell */,
@@ -315,39 +352,98 @@
 			path = StocksSegmentCollectionReusableView;
 			sourceTree = "<group>";
 		};
-		FC56FE45260921B20029B659 /* StocksErrorView */ = {
+		FC56FE45260921B20029B659 /* StocksErrorCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				FC56FE47260921DF0029B659 /* StocksErrorView.swift */,
-				FC56FE4F260922830029B659 /* StocksErrorView.xib */,
+				FC56FE47260921DF0029B659 /* StocksErrorCollectionViewCell.swift */,
+				FC56FE4F260922830029B659 /* StocksErrorCollectionViewCell.xib */,
 			);
-			path = StocksErrorView;
+			path = StocksErrorCollectionViewCell;
 			sourceTree = "<group>";
 		};
-		FC56FE46260921BC0029B659 /* StocksEmptyView */ = {
+		FC56FE46260921BC0029B659 /* StocksEmptyCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				FC56FE5A2609E3790029B659 /* StocksEmptyView.swift */,
-				FC56FE5B2609E3790029B659 /* StocksEmptyView.xib */,
+				FC56FE5A2609E3790029B659 /* StocksEmptyCollectionViewCell.swift */,
+				FC56FE5B2609E3790029B659 /* StocksEmptyCollectionViewCell.xib */,
 			);
-			path = StocksEmptyView;
+			path = StocksEmptyCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		FC56FE542609E1CB0029B659 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				FC56FE552609E1D70029B659 /* UIView.swift */,
+				FC3375F9260F8B210052DFB6 /* Atomic.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		FC56FE612609E7FD0029B659 /* StocksLoadingView */ = {
+		FC56FE612609E7FD0029B659 /* StocksLoadingCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				FC56FE622609E81C0029B659 /* StocksLoadingView.swift */,
-				FC56FE632609E81C0029B659 /* StocksLoadingView.xib */,
+				FC56FE622609E81C0029B659 /* StocksLoadingCollectionViewCell.swift */,
+				FC56FE632609E81C0029B659 /* StocksLoadingCollectionViewCell.xib */,
 			);
-			path = StocksLoadingView;
+			path = StocksLoadingCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		FCE2ACB2260F6AB200F33D01 /* PersitentStore */ = {
+			isa = PBXGroup;
+			children = (
+				FCE2ACB5260F6AB200F33D01 /* PersistentStore.swift */,
+				FC3375E9260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift */,
+				FCE2ACBC260F6AD500F33D01 /* PersistentStoreCoreDataImpl.swift */,
+				FCE2ACB3260F6AB200F33D01 /* Stocks+CoreDataProperties.swift */,
+				FCE2ACB4260F6AB200F33D01 /* Stocks+CoreDataClass.swift */,
+			);
+			path = PersitentStore;
+			sourceTree = "<group>";
+		};
+		FCE2ACC1260F6AF200F33D01 /* WebClient */ = {
+			isa = PBXGroup;
+			children = (
+				FC56FE40260908490029B659 /* WebClient.swift */,
+				FCE2ACC7260F6B3800F33D01 /* WebClientFinnhubImpl.swift */,
+				FCE2ACC2260F6AFE00F33D01 /* WebClientFakeImpl.swift */,
+			);
+			path = WebClient;
+			sourceTree = "<group>";
+		};
+		FCE2ACCC260F6B6D00F33D01 /* AppStyle */ = {
+			isa = PBXGroup;
+			children = (
+				FC01CC2926071B3700B865D9 /* AppStyle.swift */,
+				FCE2ACD3260F6B8100F33D01 /* AppWhiteStyle.swift */,
+			);
+			path = AppStyle;
+			sourceTree = "<group>";
+		};
+		FCE2ACD8260F6BA500F33D01 /* L10n */ = {
+			isa = PBXGroup;
+			children = (
+				FC01CBEC26061A6500B865D9 /* L10n.swift */,
+				FCE2ACD9260F6BB200F33D01 /* L10nImpl.swift */,
+			);
+			path = L10n;
+			sourceTree = "<group>";
+		};
+		FCE2ACDE260F6BDD00F33D01 /* ServiceProvider */ = {
+			isa = PBXGroup;
+			children = (
+				FC01CBC52606190500B865D9 /* ServiceProvider.swift */,
+				FCE2ACDF260F6BE500F33D01 /* ServiceProviderImpl.swift */,
+			);
+			path = ServiceProvider;
+			sourceTree = "<group>";
+		};
+		FCE2ACE4260F6C0800F33D01 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				FC56FE85260DDD880029B659 /* Configuration.swift */,
+				FCE2ACE5260F6C1C00F33D01 /* ConfigurationPlistImpl.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,15 +555,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC56FE652609E81C0029B659 /* StocksLoadingView.xib in Resources */,
+				FC56FE652609E81C0029B659 /* StocksLoadingCollectionViewCell.xib in Resources */,
 				FC56FE81260DDCE40029B659 /* Configuration.plist in Resources */,
 				FC56FE372608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib in Resources */,
 				FC56FE2C2608C3A70029B659 /* l10n.strings in Resources */,
 				FC01CB84260613DC00B865D9 /* LaunchScreen.storyboard in Resources */,
 				FC01CC4A2608AB9000B865D9 /* SearchBarCollectionReusableView.xib in Resources */,
 				FC01CB81260613DC00B865D9 /* Assets.xcassets in Resources */,
-				FC56FE5D2609E3790029B659 /* StocksEmptyView.xib in Resources */,
-				FC56FE50260922830029B659 /* StocksErrorView.xib in Resources */,
+				FC56FE5D2609E3790029B659 /* StocksEmptyCollectionViewCell.xib in Resources */,
+				FC56FE50260922830029B659 /* StocksErrorCollectionViewCell.xib in Resources */,
 				FC01CBE826061A2200B865D9 /* StocksCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,24 +693,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC56FE362608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift in Sources */,
-				FC56FE5C2609E3790029B659 /* StocksEmptyView.swift in Sources */,
-				FC56FE642609E81C0029B659 /* StocksLoadingView.swift in Sources */,
+				FC56FE5C2609E3790029B659 /* StocksEmptyCollectionViewCell.swift in Sources */,
+				FCE2ACE0260F6BE500F33D01 /* ServiceProviderImpl.swift in Sources */,
+				FCE2ACB8260F6AB200F33D01 /* PersistentStore.swift in Sources */,
+				FCE2ACDA260F6BB200F33D01 /* L10nImpl.swift in Sources */,
+				FC56FE642609E81C0029B659 /* StocksLoadingCollectionViewCell.swift in Sources */,
 				FC01CC102606339D00B865D9 /* StocksView.swift in Sources */,
 				FC01CBC62606190500B865D9 /* ServiceProvider.swift in Sources */,
+				FCE2ACBD260F6AD500F33D01 /* PersistentStoreCoreDataImpl.swift in Sources */,
+				FCE2ACC8260F6B3800F33D01 /* WebClientFinnhubImpl.swift in Sources */,
 				FC01CBE726061A2200B865D9 /* StocksCollectionViewCell.swift in Sources */,
-				FC56FE48260921DF0029B659 /* StocksErrorView.swift in Sources */,
+				FCE2ACC3260F6AFE00F33D01 /* WebClientFakeImpl.swift in Sources */,
+				FC0B6CD5260F1FE900072E13 /* LoadingInfo.swift in Sources */,
+				FC56FE48260921DF0029B659 /* StocksErrorCollectionViewCell.swift in Sources */,
 				FC01CC022606310400B865D9 /* StocksPresenter.swift in Sources */,
 				FC01CB78260613DA00B865D9 /* AppDelegate.swift in Sources */,
 				FC01CC18260633C300B865D9 /* StocksInfo.swift in Sources */,
+				FC0B6CD0260F1FE300072E13 /* EmptyInfo.swift in Sources */,
 				FC56FE41260908490029B659 /* WebClient.swift in Sources */,
+				FC3375EA260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift in Sources */,
 				FC56FE562609E1D70029B659 /* UIView.swift in Sources */,
 				FC56FE86260DDD880029B659 /* Configuration.swift in Sources */,
 				FC56FE8E260E0EC60029B659 /* Finnhub.swift in Sources */,
 				FC56FE6A260A0C200029B659 /* Environment.swift in Sources */,
 				FC01CBED26061A6500B865D9 /* L10n.swift in Sources */,
+				FC0B6CCB260F1FDB00072E13 /* ErrorInfo.swift in Sources */,
 				FC01CBD8260619FB00B865D9 /* StocksViewController.swift in Sources */,
-				FC01CC2A26071B3700B865D9 /* Style.swift in Sources */,
+				FCE2ACB6260F6AB200F33D01 /* Stocks+CoreDataProperties.swift in Sources */,
+				FC3375FA260F8B210052DFB6 /* Atomic.swift in Sources */,
+				FCE2ACB7260F6AB200F33D01 /* Stocks+CoreDataClass.swift in Sources */,
+				FCE2ACE6260F6C1D00F33D01 /* ConfigurationPlistImpl.swift in Sources */,
+				FC01CC2A26071B3700B865D9 /* AppStyle.swift in Sources */,
 				FC01CC492608AB9000B865D9 /* SearchBarCollectionReusableView.swift in Sources */,
+				FCE2ACA9260F574700F33D01 /* SHMB.xcdatamodeld in Sources */,
+				FCE2ACD4260F6B8100F33D01 /* AppWhiteStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,6 +1069,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FCE2ACA7260F574700F33D01 /* SHMB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FCE2ACA8260F574700F33D01 /* SHMB.xcdatamodel */,
+			);
+			currentVersion = FCE2ACA8260F574700F33D01 /* SHMB.xcdatamodel */;
+			path = SHMB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FC01CB6C260613DA00B865D9 /* Project object */;
 }

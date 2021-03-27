@@ -9,6 +9,7 @@
 "screen.stocks.detail.button.all" = "All";
 "screen.stocks_detail.button.buy" = "Buy for %@";
 "error" = "Error 😓: %@ ";
+"try_again" = "Try again";
 "empty_search" = "Nothing found for the query '%@' 😓";
 "empty" = "No data yet 🙃";
 "loading" = "Loading data ⏳...";

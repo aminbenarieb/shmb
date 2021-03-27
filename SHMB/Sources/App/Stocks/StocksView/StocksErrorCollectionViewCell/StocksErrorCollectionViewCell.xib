@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StocksErrorCollectionViewCell" id="QmM-I0-hjN" customClass="StocksErrorCollectionViewCell" customModule="SHMB" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="410" height="206"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="oWE-t0-btb">
+                <rect key="frame" x="0.0" y="0.0" width="410" height="206"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="rXs-ex-PaE">
+                        <rect key="frame" x="0.0" y="8" width="410" height="190"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.octagon.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1PJ-ce-xUA">
+                                <rect key="frame" x="180" y="0.5" width="50" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="1PJ-ce-xUA" secondAttribute="height" multiplier="21:20" id="Lwq-0b-KKG"/>
+                                    <constraint firstAttribute="width" constant="50" id="OI9-ua-ylc"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdfsdfsdfsdfsdf" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNo-zU-mug">
+                                <rect key="frame" x="0.0" y="52.5" width="410" height="72.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjI-hh-hnG">
+                                <rect key="frame" x="0.0" y="130" width="410" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="PRC-M3-7FJ"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="VNo-zU-mug" secondAttribute="trailing" id="Gff-XG-Wei"/>
+                            <constraint firstItem="pjI-hh-hnG" firstAttribute="leading" secondItem="rXs-ex-PaE" secondAttribute="leading" id="XgY-4U-drd"/>
+                            <constraint firstAttribute="trailing" secondItem="pjI-hh-hnG" secondAttribute="trailing" id="ZN4-QH-Fv7"/>
+                            <constraint firstItem="VNo-zU-mug" firstAttribute="leading" secondItem="rXs-ex-PaE" secondAttribute="leading" id="kcH-Kv-XBs"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rXs-ex-PaE" secondAttribute="trailing" id="1qd-4C-3Mh"/>
+                    <constraint firstItem="rXs-ex-PaE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oWE-t0-btb" secondAttribute="leading" id="HfT-V9-zYK"/>
+                    <constraint firstItem="rXs-ex-PaE" firstAttribute="top" secondItem="oWE-t0-btb" secondAttribute="top" constant="8" id="RNV-Qs-Es4"/>
+                    <constraint firstItem="rXs-ex-PaE" firstAttribute="width" secondItem="oWE-t0-btb" secondAttribute="width" id="i2H-Pe-2t0"/>
+                    <constraint firstAttribute="bottom" secondItem="rXs-ex-PaE" secondAttribute="bottom" constant="8" id="xI2-Br-zvi"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="410" height="206"/>
+            <connections>
+                <outlet property="button" destination="pjI-hh-hnG" id="Kew-uX-vRJ"/>
+                <outlet property="imageView" destination="1PJ-ce-xUA" id="ify-Vu-ZmJ"/>
+                <outlet property="label" destination="VNo-zU-mug" id="rd0-gg-dFe"/>
+            </connections>
+            <point key="canvasLocation" x="-534.78260869565224" y="65.625"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="xmark.octagon.fill" catalog="system" width="128" height="112"/>
+    </resources>
+</document>

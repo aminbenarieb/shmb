@@ -1,94 +1,12 @@
+import Foundation
 import os.log
 import UIKit
-
-struct LabelStyle {
-    let font: UIFont
-    let color: UIColor
-}
-
-struct PriceChangeLabelStyle {
-    let font: UIFont
-    let positiveColor: UIColor
-    let negativeColor: UIColor
-}
-
-struct ImageStyle {
-    let cornerRadious: CGFloat
-    let placeholderColor: UIColor
-}
-
-struct CellStyle {
-    var height: CGFloat
-
-    var cornerRadius: CGFloat
-
-    var imageStyle: ImageStyle
-
-    var favouriteButtonNormal: UIColor
-
-    var favouriteButtonSelected: UIColor
-
-    var titleLabel: LabelStyle
-
-    var subtitleLabel: LabelStyle
-
-    var priceLabel: LabelStyle
-
-    var changeLabel: PriceChangeLabelStyle
-
-    var evenBackgroundColor: UIColor
-
-    var oddBackgroundColor: UIColor
-
-    var contentInset: UIEdgeInsets
-}
-
-struct SearchBarStyle {
-    var height: CGFloat
-    var contentViewBackgrounColor = UIColor.white
-    var tintColor: UIColor
-    var backgroundColor: UIColor
-    var barTintColor: UIColor
-    var searchBarStyle: UISearchBar.Style
-    var returnKeyType: UIReturnKeyType
-    var showsCancelButton: Bool
-    var showsBookmarkButton: Bool
-}
-
-struct SegmentControlStyle {
-    var height: CGFloat
-    var tintColor: UIColor
-}
-
-struct StocksTableStyle {
-    let contentInset: UIEdgeInsets
-}
-
-protocol AppStyle {
-    var stocksTable: StocksTableStyle { get }
-    var backgroundColor: UIColor { get }
-    var tintColor: UIColor { get }
-
-    var navigationTintColor: UIColor { get }
-
-    var navigationTitleColor: UIColor { get }
-
-    var navigationBarTintColor: UIColor { get }
-
-    var scrollViewIndicatorStyle: UIScrollView.IndicatorStyle { get }
-
-    var searchBar: SearchBarStyle { get }
-
-    var segmentControl: SegmentControlStyle { get }
-
-    var cell: CellStyle { get }
-}
 
 struct AppWhiteStyle: AppStyle {
     var stocksTable =
         StocksTableStyle(contentInset: .init(top: 16, left: 16, bottom: 16, right: 16))
     var backgroundColor = UIColor.white
-    var tintColor = UIColor(red: 20, green: 20, blue: 255, alpha: 1)
+    var tintColor = UIColor(red: 20 / 255, green: 20 / 255, blue: 255 / 255, alpha: 1)
     var navigationTintColor = UIColor.white
     var navigationTitleColor = UIColor.white
     var navigationBarTintColor = UIColor.white
@@ -105,32 +23,56 @@ struct AppWhiteStyle: AppStyle {
         showsBookmarkButton: false
     )
     var segmentControl = SegmentControlStyle(height: 32, tintColor: .black)
-    var cell = CellStyle(
+    var stocksCell = StocksCellStyle(
         height: 68,
         cornerRadius: 16,
         imageStyle: ImageStyle(cornerRadious: 12, placeholderColor: .lightGray),
         favouriteButtonNormal: UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1),
         favouriteButtonSelected: UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1),
         titleLabel: LabelStyle(
-            font: AppWhiteStyle.font(name: "Montserrat", size: 18, weight: .bold),
+            font: UIFont.systemFont(ofSize: 18, weight: .bold),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         ),
         subtitleLabel: LabelStyle(
-            font: AppWhiteStyle.font(name: "Montserrat", size: 12, weight: .bold),
+            font: UIFont.systemFont(ofSize: 12, weight: .bold),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         ),
         priceLabel: LabelStyle(
-            font: AppWhiteStyle.font(name: "Montserrat", size: 18, weight: .semibold),
+            font: UIFont.systemFont(ofSize: 18, weight: .semibold),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         ),
         changeLabel: PriceChangeLabelStyle(
-            font: AppWhiteStyle.font(name: "Montserrat", size: 12, weight: .semibold),
+            font: UIFont.systemFont(ofSize: 12, weight: .semibold),
             positiveColor: UIColor(red: 0.14, green: 0.7, blue: 0.364, alpha: 1),
             negativeColor: UIColor(red: 0.7, green: 0.14, blue: 0.14, alpha: 1)
         ),
         evenBackgroundColor: UIColor.white,
         oddBackgroundColor: UIColor(red: 0.941, green: 0.955, blue: 0.97, alpha: 1),
         contentInset: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 12)
+    )
+    var errorCell = ErrorCellStyle(
+        height: 200,
+        imageTintColor: UIColor.red,
+        buttonTintColor: UIColor.blue,
+        label: LabelStyle(
+            font: UIFont.systemFont(ofSize: 18),
+            color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+        )
+    )
+
+    var emptyCell = EmptyCellStyle(
+        height: 200,
+        label: LabelStyle(
+            font: UIFont.systemFont(ofSize: 18),
+            color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+        )
+    )
+    var loadingCell = LoadingCellStyle(
+        height: 100,
+        label: LabelStyle(
+            font: UIFont.systemFont(ofSize: 18),
+            color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+        )
     )
 
     static func font(name: String, size: CGFloat, weight: UIFont.Weight = .regular) -> UIFont {
