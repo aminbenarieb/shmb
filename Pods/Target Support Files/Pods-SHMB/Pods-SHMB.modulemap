@@ -1,6 +1,0 @@
-framework module Pods_SHMB {
-  umbrella header "Pods-SHMB-umbrella.h"
-
-  export *
-  module * { export * }
-}

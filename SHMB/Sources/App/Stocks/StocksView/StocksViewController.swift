@@ -1,5 +1,4 @@
 import os.log
-import SnapKit
 import UIKit
 
 class StocksViewController: UIViewController {
@@ -105,9 +104,23 @@ class StocksViewController: UIViewController {
             withReuseIdentifier: StocksSegmentCollectionReusableView.identifier
         )
         self.view.addSubview(self.collectionView)
-        self.collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(self.appStyle.stocksTable.contentInset)
-        }
+        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.collectionView.topAnchor.constraint(
+            equalTo: self.view.topAnchor,
+            constant: self.appStyle.stocksTable.contentInset.top
+        ).isActive = true
+        self.collectionView.leadingAnchor.constraint(
+            equalTo: self.view.leadingAnchor,
+            constant: self.appStyle.stocksTable.contentInset.left
+        ).isActive = true
+        self.collectionView.trailingAnchor.constraint(
+            equalTo: self.view.trailingAnchor,
+            constant: -self.appStyle.stocksTable.contentInset.right
+        ).isActive = true
+        self.collectionView.bottomAnchor.constraint(
+            equalTo: self.view.bottomAnchor,
+            constant: -self.appStyle.stocksTable.contentInset.bottom
+        ).isActive = true
 
         /* Refresh control
          let refreshControl = UIRefreshControl()
