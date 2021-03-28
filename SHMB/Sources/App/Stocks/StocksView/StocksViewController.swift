@@ -337,23 +337,11 @@ extension StocksViewController: UICollectionViewDelegate {
         }
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        willDisplay _: UICollectionViewCell,
-        forItemAt indexPath: IndexPath
-    ) {
-        guard collectionView.isDragging else {
-            return
-        }
-        let numberOfItems = self.dataSource?.collectionView(
-            collectionView,
-            numberOfItemsInSection: indexPath.section
-        )
-        if
-            let numberOfItems = numberOfItems,
-            indexPath.section == Section.stocks.rawValue,
-            indexPath.row == numberOfItems - 1
-        {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let threshold = CGFloat(100.0)
+        let contentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        if maximumOffset - contentOffset <= threshold, maximumOffset - contentOffset != -5.0 {
             self.presenter.in(.nextPage)
         }
     }

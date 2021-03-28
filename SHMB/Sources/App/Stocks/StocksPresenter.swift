@@ -80,32 +80,24 @@ class StocksPresenter {
                 break
             }
         case let .filter(text):
-            // TODO: Throttle searching
-            /// Hightlights:  https://stackoverflow.com/questions/24330056/how-to-throttle-search-based-on-typing-speed-in-ios-uisearchbar
-            switch self.state {
-            case .main:
-                self.state = .main(self.filtered(text: text))
-            case .favourite:
-                self.state = .favourite(self.filtered(favourite: true, text: text))
-            case .error,
-                 .loading:
-                break
-            }
+            self.search(query: text)
         case let .toggleFavourite(onlyFavourites):
             switch self.state {
             case let .main(content):
                 guard onlyFavourites else { return }
                 switch content {
                 case .all:
-                    self.state = .favourite(self.filtered(favourite: true))
+                    self.state = .favourite(self.favourites())
                 case let .empty(emptyInfo):
+                    if emptyInfo.searchQuery?.isEmpty == false {
+                        return
+                    }
                     self
                         .state = .favourite(
-                            self
-                                .filtered(favourite: true, text: emptyInfo.searchQuery)
+                            self.favourites()
                         )
-                case let .searching(_, searchQuery):
-                    self.state = .favourite(self.filtered(favourite: true, text: searchQuery))
+                case .searching:
+                    break
                 }
             case let .favourite(content):
                 guard !onlyFavourites else { return }
@@ -113,9 +105,12 @@ class StocksPresenter {
                 case .all:
                     self.state = .main(.all(self.data))
                 case let .empty(emptyInfo):
-                    self.state = .main(self.filtered(text: emptyInfo.searchQuery))
-                case let .searching(_, searchQuery):
-                    self.state = .main(self.filtered(text: searchQuery))
+                    if emptyInfo.searchQuery?.isEmpty == false {
+                        return
+                    }
+                    self.state = .main(.all(self.data))
+                case .searching:
+                    break
                 }
             case .error,
                  .loading:
@@ -126,21 +121,48 @@ class StocksPresenter {
 }
 
 extension StocksPresenter {
-    private func filtered(favourite: Bool? = nil, text: String? = nil) -> StocksState.Content {
-        // Favourite
-        let data = favourite != nil
-            ? self.data.filter { $0.isFavourite == favourite }
-            : self.data
-        // Search Query
-        guard let text = text, !text.isEmpty else {
-            return .all(data)
-        }
-        let filteredData = data.filter { $0.title.localizedCaseInsensitiveContains(text) }
-        guard !filteredData.isEmpty else {
-            return .empty(EmptyInfo(searchQuery: text))
+    private func favourites() -> StocksState.Content {
+        let favourites = self.data.filter { $0.isFavourite == true }
+        guard !favourites.isEmpty else {
+            return .empty(EmptyInfo())
         }
 
-        return .searching(filteredData, text)
+        return .all(favourites)
+    }
+
+    private func toggleFavourite(stocksInfo: StocksInfo, for state: StocksState) {
+        let newFavouriteValue = !stocksInfo.isFavourite
+        let publisher = newFavouriteValue
+            ? self.persistentStore.add(id: stocksInfo.id)
+            : self.persistentStore.remove(id: stocksInfo.id)
+        publisher
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                switch completion {
+                case let .failure(error):
+                    self.state = .error(ErrorInfo(localizedDescription: error.localizedDescription))
+                case .finished:
+                    self.data = self.data.map {
+                        guard $0.id == stocksInfo.id else {
+                            return $0
+                        }
+                        return stocksInfo.copy(isFavourite: newFavouriteValue)
+                    }
+                    switch state {
+                    case .main:
+                        self.state = .main(.all(self.data))
+                    case .favourite:
+                        self.state = .favourite(self.favourites())
+                    case .error,
+                         .loading:
+                        return
+                    }
+                }
+            } receiveValue: { success in
+                let result = newFavouriteValue ? "added: \(success)" : "removed: \(success)"
+                os_log(.debug, "%@", result)
+            }
+            .store(in: &self.cancelableSet)
     }
 
     private func update() {
@@ -178,38 +200,18 @@ extension StocksPresenter {
             .store(in: &self.cancelableSet)
     }
 
-    private func toggleFavourite(stocksInfo: StocksInfo, for state: StocksState) {
-        let newFavouriteValue = !stocksInfo.isFavourite
-        let publisher = newFavouriteValue
-            ? self.persistentStore.add(id: stocksInfo.id)
-            : self.persistentStore.remove(id: stocksInfo.id)
-        publisher
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                switch completion {
-                case let .failure(error):
-                    self.state = .error(ErrorInfo(localizedDescription: error.localizedDescription))
-                case .finished:
-                    self.data = self.data.map {
-                        guard $0.id == stocksInfo.id else {
-                            return $0
-                        }
-                        return stocksInfo.copy(isFavourite: newFavouriteValue)
-                    }
-                    switch state {
-                    case .main:
-                        self.state = .main(.all(self.data))
-                    case .favourite:
-                        self.state = .favourite(self.filtered(favourite: true))
-                    case .error,
-                         .loading:
-                        return
-                    }
-                }
-            } receiveValue: { success in
-                let result = newFavouriteValue ? "added: \(success)" : "removed: \(success)"
-                os_log(.debug, "%@", result)
-            }
-            .store(in: &self.cancelableSet)
+    private func search(query _: String?) {
+        // TODO: Throttle searching
+        /// Hightlights:  https://stackoverflow.com/questions/24330056/how-to-throttle-search-based-on-typing-speed-in-ios-uisearchbar
+        // Search Query
+//        guard !query.isEmpty else {
+//            return .all(data)
+//        }
+//
+//        guard !filteredData.isEmpty else {
+//            return .empty(EmptyInfo(searchQuery: query))
+//        }
+//
+//        return .searching(filteredData, text)
     }
 }
