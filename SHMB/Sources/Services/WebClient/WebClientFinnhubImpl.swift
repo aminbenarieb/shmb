@@ -71,7 +71,7 @@ extension Finnhub {
                             let logoURL = URL(string: logo)
                         else {
                             return Just(response)
-                                .setFailLreType(to: Error.self)
+                                .setFailureType(to: Error.self)
                                 .eraseToAnyPublisher()
                         }
                         return self.image(url: logoURL)
