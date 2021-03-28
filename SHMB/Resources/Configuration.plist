@@ -7,7 +7,7 @@
 		<key>baseSocketUrl</key>
 		<string>wss://ws.finnhub.io</string>
 		<key>apiKey</key>
-		<string>c1atein48v6rcdq9sapg</string>
+		<string>sandbox_c1atein48v6rcdq9saq0</string>
 		<key>baseUrl</key>
 		<string>https://finnhub.io</string>
 	</dict>

@@ -4,7 +4,9 @@ import UIKit
 class StocksViewController: UIViewController {
     enum Section: Int {
         case searchbar
+        case segmentcontrol
         case stocks
+        case searchingStocks
     }
 
     enum Item: Hashable {
@@ -156,7 +158,7 @@ class StocksViewController: UIViewController {
                     ) { cmd in
                         switch cmd {
                         case let .toggleFavourite(stocksInfo):
-                            self.presenter.in(.stockToggledFavourite(stocksInfo))
+                            self.presenter.in(.stocksAction(stocksInfo, .toggleFavourite))
                         }
                     }
                     return cell
@@ -201,68 +203,76 @@ class StocksViewController: UIViewController {
                 }
             }
         )
-        self.dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            switch indexPath.section {
-            case 0:
-                switch kind {
-                case UICollectionView.elementKindSectionHeader:
-                    guard
-                        let headerView = collectionView.dequeueReusableSupplementaryView(
-                            ofKind: UICollectionView.elementKindSectionHeader,
-                            withReuseIdentifier: SearchBarCollectionReusableView.identifier,
-                            for: indexPath
-                        ) as? SearchBarCollectionReusableView
-                    else {
-                        preconditionFailure("Failed to load SearchBarCollectionReusableView")
-                    }
-                    headerView.configure(l10n: self.l10n, appStyle: self.appStyle) { cmd in
-                        switch cmd {
-                        case .cancel:
-                            self.presenter.in(.filter(nil))
-                            self.view.endEditing(true)
-                        case let .search(text):
-                            self.presenter.in(.filter(text))
-                            self.view.endEditing(true)
-                        case .textBeginEditing: break
-                        case let .textChange(text):
-                            self.presenter.in(.filter(text))
-                        case .textEndEditing: break
+        self.dataSource?
+            .supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+                guard let self = self else { return UICollectionReusableView() }
+                let snapshot = self.dataSource?.snapshot()
+                let sectionIdentifiers = snapshot?.sectionIdentifiers
+                switch sectionIdentifiers?[indexPath.section] {
+                case .searchbar:
+                    switch kind {
+                    case UICollectionView.elementKindSectionHeader:
+                        guard
+                            let headerView = collectionView.dequeueReusableSupplementaryView(
+                                ofKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: SearchBarCollectionReusableView.identifier,
+                                for: indexPath
+                            ) as? SearchBarCollectionReusableView
+                        else {
+                            preconditionFailure("Failed to load SearchBarCollectionReusableView")
                         }
+                        headerView.configure(l10n: self.l10n, appStyle: self.appStyle) { cmd in
+                            switch cmd {
+                            case .cancel:
+                                self.presenter.in(.filter(nil))
+                                self.view.endEditing(true)
+                            case let .search(text):
+                                self.presenter.in(.filter(text))
+                                self.view.endEditing(true)
+                            case .textBeginEditing: break
+                            case let .textChange(text):
+                                self.presenter.in(.filter(text))
+                            case .textEndEditing: break
+                            }
+                        }
+                        return headerView
+                    default:
+                        break
                     }
-                    return headerView
-                default:
+                case .segmentcontrol:
+                    switch kind {
+                    case UICollectionView.elementKindSectionHeader:
+                        guard
+                            let headerView = collectionView.dequeueReusableSupplementaryView(
+                                ofKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: StocksSegmentCollectionReusableView.identifier,
+                                for: indexPath
+                            ) as? StocksSegmentCollectionReusableView
+                        else {
+                            preconditionFailure(
+                                "Failed to load StocksSegmentCollectionReusableView"
+                            )
+                        }
+                        headerView.configure(l10n: self.l10n, appStyle: self.appStyle) { cmd in
+                            switch cmd {
+                            case .all:
+                                self.presenter.in(.filterFavourites(false))
+                            case .favourite:
+                                self.presenter.in(.filterFavourites(true))
+                            }
+                        }
+                        return headerView
+                    default:
+                        break
+                    }
+                case .none,
+                     .searchingStocks,
+                     .stocks:
                     break
                 }
-            case 1:
-                switch kind {
-                case UICollectionView.elementKindSectionHeader:
-                    guard
-                        let headerView = collectionView.dequeueReusableSupplementaryView(
-                            ofKind: UICollectionView.elementKindSectionHeader,
-                            withReuseIdentifier: StocksSegmentCollectionReusableView.identifier,
-                            for: indexPath
-                        ) as? StocksSegmentCollectionReusableView
-                    else {
-                        preconditionFailure("Failed to load StocksSegmentCollectionReusableView")
-                    }
-                    headerView.configure(l10n: self.l10n, appStyle: self.appStyle) { cmd in
-                        switch cmd {
-                        case .all:
-                            self.presenter.in(.toggleFavourite(false))
-                        case .favourite:
-                            self.presenter.in(.toggleFavourite(true))
-                        }
-                    }
-                    return headerView
-                default:
-                    break
-                }
-            default:
-                break
-            }
 
-            return UICollectionReusableView()
-        }
+                return UICollectionReusableView()
+            }
     }
 
     // MARK: Actions
@@ -276,47 +286,50 @@ class StocksViewController: UIViewController {
     func stopEditing() {
         self.view.endEditing(true)
     }
-
-    func applySnapshot(items: [Item], animatingDifferences: Bool = true, appending: Bool = false) {
-        var snapshot = Snapshot()
-        snapshot.appendSections([.searchbar, .stocks])
-        if appending, let stocksSnapshot = self.dataSource?.snapshot(for: .stocks) {
-            snapshot.appendItems(stocksSnapshot.items)
-        }
-
-        snapshot.appendItems(items, toSection: .stocks)
-        self.dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
-    }
 }
 
 // MARK: StocksView
 
 extension StocksViewController: StocksView {
     func show(_ state: StocksState) {
+        var snapshot = Snapshot()
         switch state {
-        case .loading:
-            self.applySnapshot(items: [.loading(LoadingInfo())], appending: true)
         case let .main(content):
+            snapshot.appendSections([.searchbar, .segmentcontrol, .stocks])
             switch content {
-            case let .all(stocksInfos):
-                self.applySnapshot(items: stocksInfos.map { .stocks($0) })
-            case let .searching(stocksInfos, _):
-                self.applySnapshot(items: stocksInfos.map { .stocks($0) })
+            case let .data(data):
+                snapshot.appendItems(data.map { .stocks($0) }, toSection: .stocks)
+            case let .loading(loadingInfo):
+                if loadingInfo.position == .bottom {
+                    if let stocksSnapshot = self.dataSource?.snapshot(for: .stocks) {
+                        snapshot.appendItems(stocksSnapshot.items)
+                    }
+                }
+                snapshot.appendItems([.loading(loadingInfo)], toSection: .stocks)
+            case let .error(errorInfo):
+                snapshot.appendItems([.error(errorInfo)], toSection: .stocks)
             case let .empty(emptyInfo):
-                self.applySnapshot(items: [.empty(emptyInfo)])
+                snapshot.appendItems([.empty(emptyInfo)], toSection: .stocks)
             }
-        case let .favourite(content):
+        case let .searching(content, _):
+            snapshot.appendSections([.searchbar, .searchingStocks])
             switch content {
-            case let .all(stocksInfos):
-                self.applySnapshot(items: stocksInfos.map { .stocks($0) })
-            case let .searching(stocksInfos, _):
-                self.applySnapshot(items: stocksInfos.map { .stocks($0) })
+            case let .data(data):
+                snapshot.appendItems(data.map { .stocks($0) }, toSection: .searchingStocks)
+            case let .loading(loadingInfo):
+                if loadingInfo.position == .bottom {
+                    if let stocksSnapshot = self.dataSource?.snapshot(for: .searchingStocks) {
+                        snapshot.appendItems(stocksSnapshot.items)
+                    }
+                }
+                snapshot.appendItems([.loading(loadingInfo)], toSection: .searchingStocks)
+            case let .error(errorInfo):
+                snapshot.appendItems([.error(errorInfo)], toSection: .searchingStocks)
             case let .empty(emptyInfo):
-                self.applySnapshot(items: [.empty(emptyInfo)])
+                snapshot.appendItems([.empty(emptyInfo)], toSection: .searchingStocks)
             }
-        case let .error(errorInfo):
-            self.applySnapshot(items: [.error(errorInfo)])
         }
+        self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -329,7 +342,7 @@ extension StocksViewController: UICollectionViewDelegate {
         }
         switch item {
         case let .stocks(stocksInfos):
-            self.presenter.in(.stockSelected(stocksInfos))
+            self.presenter.in(.stocksAction(stocksInfos, .selected))
         case .empty,
              .error,
              .loading:
@@ -387,18 +400,22 @@ extension StocksViewController: UICollectionViewDelegateFlowLayout {
         layout _: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
     ) -> CGSize {
-        switch section {
-        case 0:
+        let snapshot = self.dataSource?.snapshot()
+        let sectionIdentifiers = snapshot?.sectionIdentifiers
+        switch sectionIdentifiers?[section] {
+        case .searchbar:
             return CGSize(
                 width: collectionView.bounds.size.width,
                 height: self.appStyle.searchBar.height
             )
-        case 1:
+        case .segmentcontrol:
             return CGSize(
                 width: collectionView.bounds.size.width,
                 height: self.appStyle.segmentControl.height
             )
-        default:
+        case .none,
+             .searchingStocks,
+             .stocks:
             return .zero
         }
     }

@@ -3,15 +3,30 @@ import Foundation
 import class UIKit.UIImage
 
 extension Finnhub {
+    struct FinhubError: Error, LocalizedError {
+        let message: String
+        public var errorDescription: String? {
+            self.message
+        }
+
+        public var localizedDescription: String {
+            self.message
+        }
+    }
+
     class WebClientImpl: WebClient {
         // TODO: Make more smart cache policy
         private var cachePolicy: NSURLRequest.CachePolicy {
-            .returnCacheDataElseLoad
+            .reloadIgnoringLocalAndRemoteCacheData
         }
 
         // TODO: Make more smart timeout managment
         private var timeoutInterval: Double {
             .greatestFiniteMagnitude
+        }
+
+        private var maxSearchSymbols: Int {
+            20
         }
 
         private let configuration: FinnhubConfiguration
@@ -21,11 +36,12 @@ extension Finnhub {
             self.urlSession = URLSession.shared
         }
 
-        func stocks(page: Int) -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error> {
-            return self.symbols()
+        func stocks(query: String) -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error> {
+            return self.search(query: query)
                 .flatMap { response -> AnyPublisher<[WebClientResponse<StocksInfo>], Error> in
-                    let symbols = response.value.sorted { $0.symbol < $1.symbol }
-                    let sequence = symbols.prefix(page * 10).map { self.stocksInfo(symbol: $0) }
+                    let symbols = response.value.result
+                    let sequence = symbols.prefix(self.maxSearchSymbols)
+                        .map { self.stocksInfo(symbol: $0) }
                     return Publishers.MergeMany(sequence)
                         .collect()
                         .eraseToAnyPublisher()
@@ -50,9 +66,12 @@ extension Finnhub {
                 self.profile(symbol: symbol.symbol)
                     .flatMap { response -> AnyPublisher<WebClientResponse<Profile>, Error> in
                         let profile = response.value
-                        guard let logo = profile.logo, let logoURL = URL(string: logo) else {
+                        guard
+                            let logo = profile.logo, logo.isValidURL,
+                            let logoURL = URL(string: logo)
+                        else {
                             return Just(response)
-                                .setFailureType(to: Error.self)
+                                .setFailLreType(to: Error.self)
                                 .eraseToAnyPublisher()
                         }
                         return self.image(url: logoURL)
@@ -113,11 +132,12 @@ extension Finnhub {
         }
 
         private func search(query: String)
-            -> AnyPublisher<WebClientResponse<[SearchSymbols]>, Error>
+            -> AnyPublisher<WebClientResponse<SearchSymbols>, Error>
         {
             let path = "/api/v1/search"
             var urlComponents = URLComponents(
                 string: self.configuration.baseUrl
+                    .appending(path)
             )
             urlComponents?.queryItems = [
                 URLQueryItem(name: "token", value: self.configuration.apiKey),
@@ -155,7 +175,7 @@ extension Finnhub {
             let path = "/api/v1/company-news"
             var urlComponents = URLComponents(
                 string: self.configuration.baseUrl
-                    .appending("/api/v1/company-news")
+                    .appending(path)
             )
             urlComponents?.queryItems = [
                 URLQueryItem(name: "token", value: self.configuration.apiKey),
@@ -222,6 +242,12 @@ extension Finnhub {
             return self.urlSession
                 .dataTaskPublisher(for: request)
                 .tryMap { result -> WebClientResponse<T> in
+                    if
+                        let httpURLResponse = result.response as? HTTPURLResponse,
+                        httpURLResponse.statusCode == 429
+                    {
+                        throw FinhubError(message: "Too many requests. Try again later")
+                    }
                     let value = try decoder.decode(T.self, from: result.data)
                     return WebClientResponse(value: value, response: result.response)
                 }

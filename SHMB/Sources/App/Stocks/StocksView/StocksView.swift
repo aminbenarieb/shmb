@@ -2,15 +2,23 @@ import Foundation
 
 enum StocksState {
     enum Content {
-        case all([StocksInfo])
-        case searching([StocksInfo], String)
+        case data([StocksInfo])
         case empty(EmptyInfo)
+        case loading(LoadingInfo)
+        case error(ErrorInfo)
     }
 
-    case loading(LoadingInfo)
     case main(Content)
-    case favourite(Content)
-    case error(ErrorInfo)
+    case searching(Content, String)
+
+    func mutated(_ transform: (Content) -> (Content)) -> StocksState {
+        switch self {
+        case let .main(content):
+            return .main(transform(content))
+        case let .searching(content, query):
+            return .searching(transform(content), query)
+        }
+    }
 }
 
 protocol StocksView {

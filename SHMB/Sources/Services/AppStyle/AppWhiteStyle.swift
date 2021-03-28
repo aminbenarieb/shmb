@@ -61,7 +61,7 @@ struct AppWhiteStyle: AppStyle {
     )
 
     var emptyCell = EmptyCellStyle(
-        height: 200,
+        height: 110,
         label: LabelStyle(
             font: UIFont.systemFont(ofSize: 18),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)

@@ -19,6 +19,6 @@ struct WebClientResponse<T> {
 }
 
 protocol WebClient {
-    func stocks(page: Int) -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error>
+    func stocks(query: String) -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error>
     func image(url: URL) -> AnyPublisher<WebClientResponse<UIImage?>, Error>
 }

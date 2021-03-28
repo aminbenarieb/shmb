@@ -9,7 +9,7 @@ class WebClientFakeImpl: WebClient {
         self.environment = environment
     }
 
-    func stocks(page _: Int) -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error> {
+    func stocks(query _: String) -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error> {
         let value = self.mockedData()
         if let errorMessage = self.environment.webMockedError {
             return Fail(error: NSError(

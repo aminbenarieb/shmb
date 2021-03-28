@@ -43,6 +43,7 @@
 		FC56FE81260DDCE40029B659 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE80260DDCE40029B659 /* Configuration.plist */; };
 		FC56FE86260DDD880029B659 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE85260DDD880029B659 /* Configuration.swift */; };
 		FC56FE8E260E0EC60029B659 /* Finnhub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE8D260E0EC60029B659 /* Finnhub.swift */; };
+		FCCE0D1F2610F8FC00AE424E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCE0D1E2610F8FC00AE424E /* String.swift */; };
 		FCE2ACA9260F574700F33D01 /* SHMB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACA7260F574700F33D01 /* SHMB.xcdatamodeld */; };
 		FCE2ACB6260F6AB200F33D01 /* Stocks+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACB3260F6AB200F33D01 /* Stocks+CoreDataProperties.swift */; };
 		FCE2ACB7260F6AB200F33D01 /* Stocks+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACB4260F6AB200F33D01 /* Stocks+CoreDataClass.swift */; };
@@ -117,6 +118,7 @@
 		FC56FE80260DDCE40029B659 /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		FC56FE85260DDD880029B659 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FC56FE8D260E0EC60029B659 /* Finnhub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finnhub.swift; sourceTree = "<group>"; };
+		FCCE0D1E2610F8FC00AE424E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		FCE2ACA8260F574700F33D01 /* SHMB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SHMB.xcdatamodel; sourceTree = "<group>"; };
 		FCE2ACB3260F6AB200F33D01 /* Stocks+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stocks+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FCE2ACB4260F6AB200F33D01 /* Stocks+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stocks+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			children = (
 				FC56FE552609E1D70029B659 /* UIView.swift */,
 				FC3375F9260F8B210052DFB6 /* Atomic.swift */,
+				FCCE0D1E2610F8FC00AE424E /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				FCE2ACB6260F6AB200F33D01 /* Stocks+CoreDataProperties.swift in Sources */,
 				FC3375FA260F8B210052DFB6 /* Atomic.swift in Sources */,
 				FCE2ACB7260F6AB200F33D01 /* Stocks+CoreDataClass.swift in Sources */,
+				FCCE0D1F2610F8FC00AE424E /* String.swift in Sources */,
 				FCE2ACE6260F6C1D00F33D01 /* ConfigurationPlistImpl.swift in Sources */,
 				FC01CC2A26071B3700B865D9 /* AppStyle.swift in Sources */,
 				FC01CC492608AB9000B865D9 /* SearchBarCollectionReusableView.swift in Sources */,
