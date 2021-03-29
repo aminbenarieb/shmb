@@ -36,7 +36,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" text="Label label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1QN-n5-0AT">
-                                        <rect key="frame" x="0.0" y="40" width="161" height="12"/>
+                                        <rect key="frame" x="0.0" y="32" width="161" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -72,7 +72,7 @@
                                     <constraint firstAttribute="trailing" secondItem="1BG-dr-cT0" secondAttribute="trailing" id="A7a-U4-s9Q"/>
                                     <constraint firstItem="1QN-n5-0AT" firstAttribute="leading" secondItem="hI9-dV-giq" secondAttribute="leading" id="P1Q-gB-mDS"/>
                                     <constraint firstItem="1BG-dr-cT0" firstAttribute="leading" secondItem="m03-7a-9Xy" secondAttribute="trailing" id="R5c-Ki-qfK"/>
-                                    <constraint firstItem="1QN-n5-0AT" firstAttribute="top" secondItem="m03-7a-9Xy" secondAttribute="bottom" constant="8" symbolic="YES" id="U1m-Eo-uV1"/>
+                                    <constraint firstItem="1QN-n5-0AT" firstAttribute="top" secondItem="m03-7a-9Xy" secondAttribute="bottom" id="U1m-Eo-uV1"/>
                                     <constraint firstItem="m03-7a-9Xy" firstAttribute="top" secondItem="hI9-dV-giq" secondAttribute="top" id="UlO-uV-kux"/>
                                     <constraint firstAttribute="bottom" secondItem="1QN-n5-0AT" secondAttribute="bottom" id="YtR-sh-kgd"/>
                                     <constraint firstItem="1QN-n5-0AT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1BG-dr-cT0" secondAttribute="bottom" id="eB5-7m-4YZ"/>
