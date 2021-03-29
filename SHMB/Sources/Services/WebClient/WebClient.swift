@@ -18,7 +18,24 @@ struct WebClientResponse<T> {
     }
 }
 
+struct WebClientStocksInfo {
+    var id: String
+    var image: UIImage?
+    var title: String
+    var subtitle: String
+    var price: Float?
+    var priceChange: Float?
+    var priceChangePercent: Float? {
+        guard let priceChange = self.priceChange, let price = self.price else {
+            return nil
+        }
+        return priceChange / price
+    }
+
+    var currency: String?
+}
+
 protocol WebClient {
-    func stocks(query: String) -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error>
+    func stocks(query: String) -> AnyPublisher<WebClientResponse<[WebClientStocksInfo]>, Error>
     func image(url: URL) -> AnyPublisher<WebClientResponse<UIImage?>, Error>
 }

@@ -89,17 +89,18 @@ class StocksCollectionViewCell: UICollectionViewCell {
         else {
             self.favouriteButton.isHidden = true
         }
-        
+
         // Watching  button
-        if let isWatching = stocksInfo.isWatching {
-            self.watchButton.isHidden = false
-            self.watchButton.setTitle(isWatching ? l10n.localized(.unwatch) : l10n.localized(.watch), for: .normal)
-            self.watchButton.setTitleColor(isWatching ? appStyle.stocksCell
-                                            .watchButtonNormal : appStyle.stocksCell.watchButtonSelected, for: .normal)
-        }
-        else {
-            self.watchButton.isHidden = true
-        }
+        self.watchButton.isHidden = false
+        self.watchButton.setTitle(
+            stocksInfo.isWatching ? l10n.localized(.unwatch) : l10n.localized(.watch),
+            for: .normal
+        )
+        self.watchButton.setTitleColor(appStyle.stocksCell.watchButtonNormal, for: .normal)
+        self.watchButton.setTitleColor(
+            appStyle.stocksCell.watchButtonHighlighted,
+            for: .highlighted
+        )
 
         // Subtitle
         self.subtitleLabel.text = stocksInfo.subtitle
@@ -199,11 +200,10 @@ class StocksCollectionViewCell: UICollectionViewCell {
         guard let stocksInfo = self.stocksInfo else { return }
         self.out?(.toggleFavourite(stocksInfo))
     }
-    
+
     @IBAction
-    private func watchAction(_ sender: Any) {
+    private func watchAction(_: Any) {
         guard let stocksInfo = self.stocksInfo else { return }
         self.out?(.toggleWatch(stocksInfo))
     }
-    
 }

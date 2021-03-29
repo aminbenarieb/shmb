@@ -31,9 +31,9 @@ enum Finnhub {
     }
 
     struct Quote: Codable {
-        var c: Double?
-        var pc: Double?
-        var change: Double? {
+        var c: Float?
+        var pc: Float?
+        var change: Float? {
             guard let c = self.c, let pc = self.pc else {
                 return nil
             }

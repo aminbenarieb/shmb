@@ -6,11 +6,11 @@ struct StocksInfo {
     let image: UIImage?
     let title: String
     let isFavourite: Bool?
-    let isWatching: Bool?
+    let isWatching: Bool
     let subtitle: String
-    let price: Double?
-    let priceChange: Double?
-    var priceChangePercent: Double? {
+    let price: Float?
+    let priceChange: Float?
+    var priceChangePercent: Float? {
         guard let priceChange = self.priceChange, let price = self.price else {
             return nil
         }
@@ -37,3 +37,5 @@ extension StocksInfo {
         )
     }
 }
+
+extension StocksInfo: PersistentStoreStocksInfo {}

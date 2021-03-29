@@ -42,7 +42,6 @@
 		FC56FE6A260A0C200029B659 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE69260A0C200029B659 /* Environment.swift */; };
 		FC56FE81260DDCE40029B659 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE80260DDCE40029B659 /* Configuration.plist */; };
 		FC56FE86260DDD880029B659 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE85260DDD880029B659 /* Configuration.swift */; };
-		FC56FE8E260E0EC60029B659 /* Finnhub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE8D260E0EC60029B659 /* Finnhub.swift */; };
 		FCCE0D1F2610F8FC00AE424E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCE0D1E2610F8FC00AE424E /* String.swift */; };
 		FCE2ACA9260F574700F33D01 /* SHMB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACA7260F574700F33D01 /* SHMB.xcdatamodeld */; };
 		FCE2ACB8260F6AB200F33D01 /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2ACB5260F6AB200F33D01 /* PersistentStore.swift */; };
@@ -115,7 +114,6 @@
 		FC56FE69260A0C200029B659 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		FC56FE80260DDCE40029B659 /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		FC56FE85260DDD880029B659 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		FC56FE8D260E0EC60029B659 /* Finnhub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finnhub.swift; sourceTree = "<group>"; };
 		FCCE0D1E2610F8FC00AE424E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		FCE2ACA8260F574700F33D01 /* SHMB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SHMB.xcdatamodel; sourceTree = "<group>"; };
 		FCE2ACB5260F6AB200F33D01 /* PersistentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 				FC0B6CCA260F1FDB00072E13 /* ErrorInfo.swift */,
 				FC0B6CCF260F1FE300072E13 /* EmptyInfo.swift */,
 				FC0B6CD4260F1FE900072E13 /* LoadingInfo.swift */,
-				FC56FE8D260E0EC60029B659 /* Finnhub.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -563,7 +560,6 @@
 				FC3375EA260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift in Sources */,
 				FC56FE562609E1D70029B659 /* UIView.swift in Sources */,
 				FC56FE86260DDD880029B659 /* Configuration.swift in Sources */,
-				FC56FE8E260E0EC60029B659 /* Finnhub.swift in Sources */,
 				FC56FE6A260A0C200029B659 /* Environment.swift in Sources */,
 				FC01CBED26061A6500B865D9 /* L10n.swift in Sources */,
 				FC0B6CCB260F1FDB00072E13 /* ErrorInfo.swift in Sources */,

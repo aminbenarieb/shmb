@@ -2,6 +2,8 @@ import Combine
 import Foundation
 import class UIKit.UIImage
 
+enum Finnhub {}
+
 extension Finnhub {
     struct FinhubError: Error, LocalizedError {
         let message: String
@@ -36,17 +38,19 @@ extension Finnhub {
             self.urlSession = URLSession.shared
         }
 
-        func stocks(query: String) -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error> {
+        func stocks(query: String)
+            -> AnyPublisher<WebClientResponse<[WebClientStocksInfo]>, Error>
+        {
             return self.search(query: query)
-                .flatMap { response -> AnyPublisher<[WebClientResponse<StocksInfo>], Error> in
+                .flatMap { response -> AnyPublisher<[WebClientResponse<WebClientStocksInfo>], Error> in
                     let symbols = response.value.result
                     let sequence = symbols.prefix(self.maxSearchSymbols)
-                        .map { self.stocksInfo(symbol: $0) }
+                        .map { self.WebClientStocksInfo(symbol: $0) }
                     return Publishers.MergeMany(sequence)
                         .collect()
                         .eraseToAnyPublisher()
                 }
-                .flatMap { responses -> AnyPublisher<WebClientResponse<[StocksInfo]>, Error> in
+                .flatMap { responses -> AnyPublisher<WebClientResponse<[WebClientStocksInfo]>, Error> in
                     let values = responses.map { $0.value }
                     let responses = responses
                         .reduce([URLResponse]()) { (result, response) -> [URLResponse] in
@@ -59,8 +63,8 @@ extension Finnhub {
                 .eraseToAnyPublisher()
         }
 
-        private func stocksInfo(symbol: Symbol)
-            -> AnyPublisher<WebClientResponse<StocksInfo>, Error>
+        private func WebClientStocksInfo(symbol: Symbol)
+            -> AnyPublisher<WebClientResponse<WebClientStocksInfo>, Error>
         {
             return Publishers.Zip(
                 self.profile(symbol: symbol.symbol)
@@ -95,22 +99,20 @@ extension Finnhub {
                 self.quotes(symbol: symbol.symbol)
                     .replaceError(with: .init(value: .init(c: nil, pc: nil), response: nil))
             )
-            .map { result -> WebClientResponse<StocksInfo> in
+            .map { result -> WebClientResponse<WebClientStocksInfo> in
                 let profile = result.0.value
                 let quote = result.1.value
-                let stocksInfo = StocksInfo(
+                let webClientStocksInfo = SHMB.WebClientStocksInfo(
                     id: symbol.symbol,
                     image: profile.image,
                     title: symbol.symbol,
-                    isFavourite: false,
-                    isWatching: false,
                     subtitle: symbol.description,
                     price: quote.c,
                     priceChange: quote.change,
                     currency: profile.currency
                 )
                 let responeses = result.0.responses + result.1.responses
-                return .init(value: stocksInfo, responses: responeses)
+                return .init(value: webClientStocksInfo, responses: responeses)
             }
             .flatMap {
                 Just($0)
@@ -265,6 +267,47 @@ extension Finnhub {
                 userInfo: [NSLocalizedDescriptionKey: description]
             ))
                 .eraseToAnyPublisher()
+        }
+    }
+}
+
+extension Finnhub {
+    struct SearchSymbols: Codable {
+        var count: Int
+        var result: [Symbol]
+    }
+
+    struct Symbol: Codable {
+        var description: String
+        var symbol: String
+    }
+
+    struct News: Codable {
+        var datetime: Int
+        var headline: String
+        var source: String
+        var summary: String
+        var url: URL
+    }
+
+    struct Profile: Codable {
+        var logo: String?
+        var currency: String?
+        var image: UIImage?
+        private enum CodingKeys: String, CodingKey {
+            case logo
+            case currency
+        }
+    }
+
+    struct Quote: Codable {
+        var c: Float?
+        var pc: Float?
+        var change: Float? {
+            guard let c = self.c, let pc = self.pc else {
+                return nil
+            }
+            return pc - c
         }
     }
 }
