@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3296B45598C61E772996C62D /* Pods_SHMB_SHMBUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40F59C69B804A3F1FB88AF3 /* Pods_SHMB_SHMBUITests.framework */; };
+		85A762BDA42C916A3F8B5462 /* Pods_SHMBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B0797715973BC3A5CA7E9D /* Pods_SHMBTests.framework */; };
+		EE24E8F6585057DF0AE46CA1 /* Pods_SHMB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C538B1E28C8E9BA9A9059F /* Pods_SHMB.framework */; };
 		FC01CB78260613DA00B865D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC01CB77260613DA00B865D9 /* AppDelegate.swift */; };
 		FC01CB81260613DC00B865D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC01CB80260613DC00B865D9 /* Assets.xcassets */; };
 		FC01CB84260613DC00B865D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC01CB82260613DC00B865D9 /* LaunchScreen.storyboard */; };
@@ -72,6 +75,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DD178EBDED3EFA20BCE3DE7 /* Pods-SHMBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHMBTests.release.xcconfig"; path = "Target Support Files/Pods-SHMBTests/Pods-SHMBTests.release.xcconfig"; sourceTree = "<group>"; };
+		1DCE74EB233C8F4C564F8D85 /* Pods-SHMB-SHMBUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHMB-SHMBUITests.release.xcconfig"; path = "Target Support Files/Pods-SHMB-SHMBUITests/Pods-SHMB-SHMBUITests.release.xcconfig"; sourceTree = "<group>"; };
+		38B0797715973BC3A5CA7E9D /* Pods_SHMBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SHMBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE76229075E7E1923ECE450 /* Pods-SHMBTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHMBTests.debug.xcconfig"; path = "Target Support Files/Pods-SHMBTests/Pods-SHMBTests.debug.xcconfig"; sourceTree = "<group>"; };
+		70FC102445AE253E884C00A9 /* Pods-SHMB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHMB.release.xcconfig"; path = "Target Support Files/Pods-SHMB/Pods-SHMB.release.xcconfig"; sourceTree = "<group>"; };
+		B92C6CFD866507EC94F50FB2 /* Pods-SHMB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHMB.debug.xcconfig"; path = "Target Support Files/Pods-SHMB/Pods-SHMB.debug.xcconfig"; sourceTree = "<group>"; };
+		D40F59C69B804A3F1FB88AF3 /* Pods_SHMB_SHMBUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SHMB_SHMBUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7D5B071F3418DD349AB83E1 /* Pods-SHMB-SHMBUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHMB-SHMBUITests.debug.xcconfig"; path = "Target Support Files/Pods-SHMB-SHMBUITests/Pods-SHMB-SHMBUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E9C538B1E28C8E9BA9A9059F /* Pods_SHMB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SHMB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC01CB74260613DA00B865D9 /* SHMB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHMB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC01CB77260613DA00B865D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC01CB80260613DC00B865D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -131,6 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE24E8F6585057DF0AE46CA1 /* Pods_SHMB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85A762BDA42C916A3F8B5462 /* Pods_SHMBTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,12 +159,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3296B45598C61E772996C62D /* Pods_SHMB_SHMBUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F79C691B79BFC25C8D943F65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E9C538B1E28C8E9BA9A9059F /* Pods_SHMB.framework */,
+				D40F59C69B804A3F1FB88AF3 /* Pods_SHMB_SHMBUITests.framework */,
+				38B0797715973BC3A5CA7E9D /* Pods_SHMBTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FC01CB6B260613DA00B865D9 = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +183,8 @@
 				FC01CB8D260613DC00B865D9 /* SHMBTests */,
 				FC01CB98260613DC00B865D9 /* SHMBUITests */,
 				FC01CB75260613DA00B865D9 /* Products */,
+				FFCC64F4614E50C597F85428 /* Pods */,
+				F79C691B79BFC25C8D943F65 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -400,6 +427,20 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		FFCC64F4614E50C597F85428 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B92C6CFD866507EC94F50FB2 /* Pods-SHMB.debug.xcconfig */,
+				70FC102445AE253E884C00A9 /* Pods-SHMB.release.xcconfig */,
+				D7D5B071F3418DD349AB83E1 /* Pods-SHMB-SHMBUITests.debug.xcconfig */,
+				1DCE74EB233C8F4C564F8D85 /* Pods-SHMB-SHMBUITests.release.xcconfig */,
+				6CE76229075E7E1923ECE450 /* Pods-SHMBTests.debug.xcconfig */,
+				0DD178EBDED3EFA20BCE3DE7 /* Pods-SHMBTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -407,9 +448,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC01CB9E260613DC00B865D9 /* Build configuration list for PBXNativeTarget "SHMB" */;
 			buildPhases = (
+				816EEB387E310659695D589B /* [CP] Check Pods Manifest.lock */,
 				FC01CB70260613DA00B865D9 /* Sources */,
 				FC01CB71260613DA00B865D9 /* Frameworks */,
 				FC01CB72260613DA00B865D9 /* Resources */,
+				3848A4CA823E9472B60B5417 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -424,6 +467,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC01CBA1260613DC00B865D9 /* Build configuration list for PBXNativeTarget "SHMBTests" */;
 			buildPhases = (
+				6F14C343DB742932B93C15A2 /* [CP] Check Pods Manifest.lock */,
 				FC01CB86260613DC00B865D9 /* Sources */,
 				FC01CB87260613DC00B865D9 /* Frameworks */,
 				FC01CB88260613DC00B865D9 /* Resources */,
@@ -442,9 +486,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC01CBA4260613DC00B865D9 /* Build configuration list for PBXNativeTarget "SHMBUITests" */;
 			buildPhases = (
+				3669B57ED7D330AB4A6424FC /* [CP] Check Pods Manifest.lock */,
 				FC01CB91260613DC00B865D9 /* Sources */,
 				FC01CB92260613DC00B865D9 /* Frameworks */,
 				FC01CB93260613DC00B865D9 /* Resources */,
+				2875A9C059050D691C0E6CB3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -532,6 +578,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2875A9C059050D691C0E6CB3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SHMB-SHMBUITests/Pods-SHMB-SHMBUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SHMB-SHMBUITests/Pods-SHMB-SHMBUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SHMB-SHMBUITests/Pods-SHMB-SHMBUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3669B57ED7D330AB4A6424FC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SHMB-SHMBUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3848A4CA823E9472B60B5417 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SHMB/Pods-SHMB-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SHMB/Pods-SHMB-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SHMB/Pods-SHMB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F14C343DB742932B93C15A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SHMBTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		816EEB387E310659695D589B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SHMB-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FC01CB70260613DA00B865D9 /* Sources */ = {
@@ -747,6 +896,7 @@
 		};
 		FC01CB9F260613DC00B865D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B92C6CFD866507EC94F50FB2 /* Pods-SHMB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -766,6 +916,7 @@
 		};
 		FC01CBA0260613DC00B865D9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70FC102445AE253E884C00A9 /* Pods-SHMB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -785,6 +936,7 @@
 		};
 		FC01CBA2260613DC00B865D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CE76229075E7E1923ECE450 /* Pods-SHMBTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -807,6 +959,7 @@
 		};
 		FC01CBA3260613DC00B865D9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DD178EBDED3EFA20BCE3DE7 /* Pods-SHMBTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -829,6 +982,7 @@
 		};
 		FC01CBA5260613DC00B865D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7D5B071F3418DD349AB83E1 /* Pods-SHMB-SHMBUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -849,6 +1003,7 @@
 		};
 		FC01CBA6260613DC00B865D9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DCE74EB233C8F4C564F8D85 /* Pods-SHMB-SHMBUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

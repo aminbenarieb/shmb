@@ -9,6 +9,9 @@ class StocksPresenter {
     struct Page<T> {
         let data: T
         let page: Int
+        func modified(_ transform: (T) -> (T)) -> Page<T> {
+            .init(data: transform(self.data), page: self.page)
+        }
     }
 
     private var watchListPage: Page<[StocksInfo]>
@@ -70,7 +73,7 @@ class StocksPresenter {
                 // TODO: Show detail stocks screen
                 os_log(.debug, ".stockSelected not implemented yet")
             case .toggleFavourite:
-                os_log(.debug, ".toggleFavourite not implemented yet")
+                self.toggleFavourite(stocksInfo: stocksInfo)
             case .toggleWatch:
                 self.toggleWatch(stocksInfo: stocksInfo)
             }
@@ -90,35 +93,135 @@ class StocksPresenter {
         case let .filter(text):
             self.search(query: text)
         case let .filterFavourites(onlyFavourites):
-            switch self.state {
-            case let .main(content):
-                switch content {
-                case .data:
-                    let newData = self.watchListPage.data
-                        .filter { $0.isFavourite == onlyFavourites }
-                    self.state = .main(newData.isEmpty ? .empty(EmptyInfo()) : .data(newData))
-                case let .empty(emptyInfo):
-                    if emptyInfo.searchQuery?.isEmpty == false {
-                        return
-                    }
-                    let newData = self.watchListPage.data
-                        .filter { $0.isFavourite == onlyFavourites }
-                    self.state = .main(newData.isEmpty ? .empty(EmptyInfo()) : .data(newData))
-                case .error,
-                     .loading:
-                    break
-                }
-            case .searching:
-                break
-            }
+            self.filterFavourites(onlyFavourites)
         }
     }
 }
 
 extension StocksPresenter {
     private func toggleWatch(stocksInfo: StocksInfo) {
-        let newWatchValue = !stocksInfo.isWatching
-        let publisher = self.persistentStore.watch(stocksInfo: stocksInfo)
+        let newStocksInfo = stocksInfo.copy(isWatching: !stocksInfo.isWatching)
+        let publisher = newStocksInfo.isWatching
+            ? self.persistentStore.watch(stocksInfo: newStocksInfo)
+            : self.persistentStore.unwatch(stocksInfo: newStocksInfo)
+        publisher
+            .sink(receiveCompletion: { [weak self] c in
+                guard let self = self else { return }
+                switch c {
+                case let .failure(error):
+                    self.state = self.state
+                        .mutated { _ in
+                            .error(ErrorInfo(localizedDescription: error.localizedDescription))
+                        }
+                case .finished:
+                    switch self.state {
+                    case .main:
+                        self
+                            .state = .main(
+                                self.watchListPage.data
+                                    .isEmpty ? .empty(EmptyInfo()) : .data(self.watchListPage.data)
+                            )
+                    case let .searching(_, query):
+                        self.state = .searching(
+                            self.searchListPage.data
+                                .isEmpty ? .empty(EmptyInfo()) : .data(self.searchListPage.data),
+                            query
+                        )
+                    }
+                }
+            }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                let logEvent = "\(stocksInfo.isWatching ? "watch" : "unwatch") result: \(value)"
+                os_log(.debug, "%@", logEvent)
+                if value {
+                    switch self.state {
+                    case .main:
+                        self.watchListPage = self.watchListPage.modified {
+                            $0.compactMap { oldStocksInfo in
+                                guard oldStocksInfo.id == newStocksInfo.id else {
+                                    return oldStocksInfo
+                                }
+                                return newStocksInfo.isWatching ? newStocksInfo : nil
+                            }
+                        }
+                    case .searching:
+                        self.searchListPage = self.searchListPage.modified {
+                            $0.map { oldStocksInfo in
+                                guard oldStocksInfo.id == newStocksInfo.id else {
+                                    return oldStocksInfo
+                                }
+                                return newStocksInfo
+                            }
+                        }
+                    }
+                }
+            })
+            .store(in: &self.cancelablePersistentStoreSet)
+    }
+
+    private func toggleFavourite(stocksInfo: StocksInfo) {
+        let newFavouriteValue = !(stocksInfo.isFavourite ?? false)
+        let newStocksInfo = stocksInfo.copy(isFavourite: newFavouriteValue)
+        let publisher = newFavouriteValue
+            ? self.persistentStore.favourite(stocksInfo: newStocksInfo)
+            : self.persistentStore.unfavourite(stocksInfo: newStocksInfo)
+        publisher
+            .sink(receiveCompletion: { [weak self] c in
+                guard let self = self else { return }
+                switch c {
+                case let .failure(error):
+                    self.state = self.state
+                        .mutated { _ in
+                            .error(ErrorInfo(localizedDescription: error.localizedDescription))
+                        }
+                case .finished:
+                    self
+                        .state = .main(
+                            self.watchListPage.data
+                                .isEmpty ? .empty(EmptyInfo()) : .data(self.watchListPage.data)
+                        )
+                }
+            }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                let logEvent =
+                    "\(stocksInfo.isWatching ? "favourite" : "unfavourite") result: \(value)"
+                os_log(.debug, "%@", logEvent)
+                if value {
+                    self.watchListPage = self.watchListPage.modified {
+                        $0.map { oldStocksInfo in
+                            guard oldStocksInfo.id == newStocksInfo.id else {
+                                return oldStocksInfo
+                            }
+                            return newStocksInfo
+                        }
+                    }
+                }
+            })
+            .store(in: &self.cancelablePersistentStoreSet)
+    }
+
+    private func filterFavourites(_ onlyFavourites: Bool) {
+        switch self.state {
+        case let .main(content):
+            switch content {
+            case .data:
+                let newData = self.watchListPage.data
+                    .filter { !onlyFavourites || $0.isFavourite == onlyFavourites }
+                self.state = .main(newData.isEmpty ? .empty(EmptyInfo()) : .data(newData))
+            case let .empty(emptyInfo):
+                if emptyInfo.searchQuery?.isEmpty == false {
+                    return
+                }
+                let newData = self.watchListPage.data
+                    .filter { !onlyFavourites || $0.isFavourite == onlyFavourites }
+                self.state = .main(newData.isEmpty ? .empty(EmptyInfo()) : .data(newData))
+            case .error,
+                 .loading:
+                break
+            }
+        case .searching:
+            break
+        }
     }
 
     private func fetch() {
@@ -143,7 +246,7 @@ extension StocksPresenter {
                     data: v.map {
                         StocksInfo(
                             id: $0.id,
-                            image: nil, // TODO: Show cached image
+                            imageURL: $0.imageURL,
                             title: $0.title,
                             isFavourite: $0.isFavourite,
                             isWatching: true,
@@ -201,7 +304,7 @@ extension StocksPresenter {
                     self.searchListPage = .init(data: result.value.map {
                         StocksInfo(
                             id: $0.id,
-                            image: $0.image,
+                            imageURL: $0.imageURL,
                             title: $0.title,
                             isFavourite: nil,
                             isWatching: false,
@@ -216,11 +319,7 @@ extension StocksPresenter {
         }
         self.cancelableSearchSet = Set()
         guard let query = query, !query.isEmpty else {
-            self.state = .main(
-                self.watchListPage.data.isEmpty
-                    ? .empty(EmptyInfo())
-                    : .data(self.watchListPage.data)
-            )
+            self.fetch()
             return
         }
 

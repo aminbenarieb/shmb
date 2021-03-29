@@ -41,7 +41,7 @@ class WebClientFakeImpl: WebClient {
         return [
             WebClientStocksInfo(
                 id: "YNDX",
-                image: UIImage(named: "YNDX"),
+                imageURL: URL(string: "https://fake.mocked/YNDX"),
                 title: "YNDX",
                 subtitle: "Yandex, LLC",
                 price: 4764.6,
@@ -50,7 +50,7 @@ class WebClientFakeImpl: WebClient {
             ),
             WebClientStocksInfo(
                 id: "AAPL",
-                image: UIImage(named: "AAPL"),
+                imageURL: URL(string: "https://fake.mocked/AAPL"),
                 title: "AAPL",
                 subtitle: "Apple Inc.",
                 price: 131.93,
@@ -59,7 +59,7 @@ class WebClientFakeImpl: WebClient {
             ),
             WebClientStocksInfo(
                 id: "GOOGL",
-                image: UIImage(named: "GOOGL"),
+                imageURL: URL(string: "https://fake.mocked/GOOGL"),
                 title: "GOOGL",
                 subtitle: "Alphabet Class A",
                 price: 1825,
@@ -68,7 +68,7 @@ class WebClientFakeImpl: WebClient {
             ),
             WebClientStocksInfo(
                 id: "4",
-                image: UIImage(named: "AMZN"),
+                imageURL: URL(string: "https://fake.mocked/AMZN"),
                 title: "AMZN",
                 subtitle: "Amazon.com",
                 price: 3204,
@@ -77,7 +77,7 @@ class WebClientFakeImpl: WebClient {
             ),
             WebClientStocksInfo(
                 id: "BAC",
-                image: UIImage(named: "BAC"),
+                imageURL: URL(string: "https://fake.mocked/BAC"),
                 title: "BAC",
                 subtitle: "Bank of America Corp",
                 price: 3204,
@@ -86,7 +86,7 @@ class WebClientFakeImpl: WebClient {
             ),
             WebClientStocksInfo(
                 id: "MSFT",
-                image: UIImage(named: "MSFT"),
+                imageURL: URL(string: "https://fake.mocked/MSFT"),
                 title: "MSFT",
                 subtitle: "Microsoft Corporation",
                 price: 3204,
@@ -95,7 +95,7 @@ class WebClientFakeImpl: WebClient {
             ),
             WebClientStocksInfo(
                 id: "TSLA",
-                image: UIImage(named: "TSLA"),
+                imageURL: URL(string: "https://fake.mocked/TSLA"),
                 title: "TSLA",
                 subtitle: "Tesla Motors",
                 price: 3204,
@@ -104,7 +104,7 @@ class WebClientFakeImpl: WebClient {
             ),
             WebClientStocksInfo(
                 id: "MA",
-                image: UIImage(named: "MA"),
+                imageURL: URL(string: "https://fake.mocked/MA"),
                 title: "MA",
                 subtitle: "Mastercard",
                 price: 3204,

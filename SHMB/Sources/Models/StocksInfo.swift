@@ -3,7 +3,7 @@ import UIKit
 
 struct StocksInfo {
     let id: String
-    let image: UIImage?
+    let imageURL: URL?
     let title: String
     let isFavourite: Bool?
     let isWatching: Bool
@@ -23,13 +23,13 @@ struct StocksInfo {
 extension StocksInfo: Hashable {}
 
 extension StocksInfo {
-    func copy(isFavourite: Bool) -> StocksInfo {
+    func copy(isFavourite: Bool? = nil, isWatching: Bool? = nil) -> StocksInfo {
         return .init(
             id: self.id,
-            image: self.image,
+            imageURL: self.imageURL,
             title: self.title,
-            isFavourite: isFavourite,
-            isWatching: self.isWatching,
+            isFavourite: isFavourite ?? self.isFavourite,
+            isWatching: isWatching ?? self.isWatching,
             subtitle: self.subtitle,
             price: self.price,
             priceChange: self.priceChange,

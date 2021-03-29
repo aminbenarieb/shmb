@@ -45,7 +45,7 @@ extension Finnhub {
                 .flatMap { response -> AnyPublisher<[WebClientResponse<WebClientStocksInfo>], Error> in
                     let symbols = response.value.result
                     let sequence = symbols.prefix(self.maxSearchSymbols)
-                        .map { self.WebClientStocksInfo(symbol: $0) }
+                        .map { self.webClientStocksInfo(symbol: $0) }
                     return Publishers.MergeMany(sequence)
                         .collect()
                         .eraseToAnyPublisher()
@@ -63,7 +63,7 @@ extension Finnhub {
                 .eraseToAnyPublisher()
         }
 
-        private func WebClientStocksInfo(symbol: Symbol)
+        private func webClientStocksInfo(symbol: Symbol)
             -> AnyPublisher<WebClientResponse<WebClientStocksInfo>, Error>
         {
             return Publishers.Zip(
@@ -78,22 +78,20 @@ extension Finnhub {
                                 .setFailureType(to: Error.self)
                                 .eraseToAnyPublisher()
                         }
-                        return self.image(url: logoURL)
-                            .map { imageResponse in
-                                WebClientResponse(
-                                    value: Profile(
-                                        logo: profile.logo,
-                                        currency: profile.currency,
-                                        image: imageResponse.value
-                                    ),
-                                    responses: response.responses + imageResponse.responses
-                                )
-                            }
+                        return Just(WebClientResponse(
+                            value: Profile(
+                                logo: profile.logo,
+                                currency: profile.currency,
+                                imageURL: logoURL
+                            ),
+                            responses: response.responses
+                        ))
+                            .setFailureType(to: Error.self)
                             .eraseToAnyPublisher()
                     }
                     .eraseToAnyPublisher()
                     .replaceError(with: .init(
-                        value: .init(logo: nil, currency: nil, image: nil),
+                        value: .init(logo: nil, currency: nil),
                         response: nil
                     )),
                 self.quotes(symbol: symbol.symbol)
@@ -102,9 +100,8 @@ extension Finnhub {
             .map { result -> WebClientResponse<WebClientStocksInfo> in
                 let profile = result.0.value
                 let quote = result.1.value
-                let webClientStocksInfo = SHMB.WebClientStocksInfo(
+                let webClientStocksInfo = WebClientStocksInfo(
                     id: symbol.symbol,
-                    image: profile.image,
                     title: symbol.symbol,
                     subtitle: symbol.description,
                     price: quote.c,
@@ -293,7 +290,7 @@ extension Finnhub {
     struct Profile: Codable {
         var logo: String?
         var currency: String?
-        var image: UIImage?
+        var imageURL: URL?
         private enum CodingKeys: String, CodingKey {
             case logo
             case currency

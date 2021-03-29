@@ -20,7 +20,7 @@ struct WebClientResponse<T> {
 
 struct WebClientStocksInfo {
     var id: String
-    var image: UIImage?
+    var imageURL: URL?
     var title: String
     var subtitle: String
     var price: Float?
