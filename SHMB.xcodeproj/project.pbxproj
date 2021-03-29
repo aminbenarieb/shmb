@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,6 +31,7 @@
 		FC0B6CD5260F1FE900072E13 /* LoadingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0B6CD4260F1FE900072E13 /* LoadingInfo.swift */; };
 		FC3375EA260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3375E9260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift */; };
 		FC3375FA260F8B210052DFB6 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3375F9260F8B210052DFB6 /* Atomic.swift */; };
+		FC3729CA261225B70043AA63 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3729C9261225B70043AA63 /* ImageLoader.swift */; };
 		FC56FE2C2608C3A70029B659 /* l10n.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC01CBF826061EF900B865D9 /* l10n.strings */; };
 		FC56FE362608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */; };
 		FC56FE372608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */; };
@@ -113,6 +114,7 @@
 		FC0B6CD4260F1FE900072E13 /* LoadingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingInfo.swift; sourceTree = "<group>"; };
 		FC3375E9260F7C870052DFB6 /* PersistentStoreUserDefaultsImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreUserDefaultsImpl.swift; sourceTree = "<group>"; };
 		FC3375F9260F8B210052DFB6 /* Atomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
+		FC3729C9261225B70043AA63 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		FC56FE342608CAAC0029B659 /* StocksSegmentCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksSegmentCollectionReusableView.swift; sourceTree = "<group>"; };
 		FC56FE352608CAAC0029B659 /* StocksSegmentCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StocksSegmentCollectionReusableView.xib; sourceTree = "<group>"; };
 		FC56FE40260908490029B659 /* WebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				FCE2ACCC260F6B6D00F33D01 /* AppStyle */,
 				FCE2ACC1260F6AF200F33D01 /* WebClient */,
 				FC56FE69260A0C200029B659 /* Environment.swift */,
+				FC3729C9261225B70043AA63 /* ImageLoader.swift */,
 				FCE2ACB2260F6AB200F33D01 /* PersitentStore */,
 				FCE2ACE4260F6C0800F33D01 /* Configuration */,
 			);
@@ -437,7 +440,6 @@
 				6CE76229075E7E1923ECE450 /* Pods-SHMBTests.debug.xcconfig */,
 				0DD178EBDED3EFA20BCE3DE7 /* Pods-SHMBTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -715,6 +717,7 @@
 				FC01CBD8260619FB00B865D9 /* StocksViewController.swift in Sources */,
 				FC3375FA260F8B210052DFB6 /* Atomic.swift in Sources */,
 				FCCE0D1F2610F8FC00AE424E /* String.swift in Sources */,
+				FC3729CA261225B70043AA63 /* ImageLoader.swift in Sources */,
 				FCE2ACE6260F6C1D00F33D01 /* ConfigurationPlistImpl.swift in Sources */,
 				FC01CC2A26071B3700B865D9 /* AppStyle.swift in Sources */,
 				FC01CC492608AB9000B865D9 /* SearchBarCollectionReusableView.swift in Sources */,

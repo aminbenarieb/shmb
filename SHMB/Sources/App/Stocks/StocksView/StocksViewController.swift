@@ -22,6 +22,7 @@ class StocksViewController: UIViewController {
     private var presenter: StocksPresenter!
     private let appStyle: AppStyle
     private let l10n: L10n
+    private var imageLoader: ImageLoader
     private var dataSource: DataSource?
 
     private var collectionView: UICollectionView!
@@ -31,6 +32,7 @@ class StocksViewController: UIViewController {
     init(serviceProvider: ServiceProvider) {
         self.appStyle = serviceProvider.appStyle
         self.l10n = serviceProvider.l10n
+        self.imageLoader = serviceProvider.imageLoader
         super.init(nibName: nil, bundle: nil)
         self.presenter = .init(view: self, serviceProvider: serviceProvider)
         self.setupUI()
@@ -155,7 +157,8 @@ class StocksViewController: UIViewController {
                         index: indexPath.row,
                         stocksInfo: stocksInfo,
                         appStyle: self.appStyle,
-                        l10n: self.l10n
+                        l10n: self.l10n,
+                        imageLoader: self.imageLoader
                     ) { cmd in
                         switch cmd {
                         case let .toggleFavourite(stocksInfo):
@@ -357,7 +360,10 @@ extension StocksViewController: UICollectionViewDelegate {
         let threshold = CGFloat(100.0)
         let contentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        if maximumOffset - contentOffset <= threshold, maximumOffset - contentOffset != -5.0 && scrollView.isDragging {
+        if
+            maximumOffset - contentOffset <= threshold, maximumOffset - contentOffset != -5.0,
+            scrollView.isDragging
+        {
             self.presenter.in(.nextPage)
         }
     }

@@ -6,4 +6,5 @@ struct ServiceProviderSingletonImpl: ServiceProvider {
     let appStyle: AppStyle
     let environment: Environment
     let persistentStore: PersistentStore
+    let imageLoader: ImageLoader
 }

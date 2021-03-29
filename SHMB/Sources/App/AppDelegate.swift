@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 l10n: L10nImpl(),
                 appStyle: appStyle,
                 environment: environment,
-                persistentStore: PersistentStoreCoreDataImpl()
+                persistentStore: PersistentStoreCoreDataImpl(),
+                imageLoader: environment.webMocked
+                    ? ImageLoaderFakeImpl()
+                    : ImageLoaderSDImpl()
             )
             let stoksViewController = StocksViewController(
                 serviceProvider: serviceProvider

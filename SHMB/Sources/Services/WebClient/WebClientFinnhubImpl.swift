@@ -118,19 +118,6 @@ extension Finnhub {
             .eraseToAnyPublisher()
         }
 
-        func image(url: URL) -> AnyPublisher<WebClientResponse<UIImage?>, Error> {
-            self.urlSession
-                .dataTaskPublisher(for: url)
-                .tryMap { result -> WebClientResponse<UIImage?> in
-                    WebClientResponse(
-                        value: UIImage(data: result.data),
-                        response: result.response
-                    )
-                }
-                .receive(on: DispatchQueue.main)
-                .eraseToAnyPublisher()
-        }
-
         private func search(query: String)
             -> AnyPublisher<WebClientResponse<SearchSymbols>, Error>
         {

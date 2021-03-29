@@ -28,15 +28,6 @@ class WebClientFakeImpl: WebClient {
             .eraseToAnyPublisher()
     }
 
-    func image(url: URL) -> AnyPublisher<WebClientResponse<UIImage?>, Error> {
-        let response = URLResponse()
-        let value = UIImage(named: url.lastPathComponent)
-        return Just(WebClientResponse(value: value, response: response))
-            .setFailureType(to: Error.self)
-            .delay(for: .seconds(self.environment.webMockedDelay ?? 0), scheduler: RunLoop.main)
-            .eraseToAnyPublisher()
-    }
-
     private func mockedData() -> [WebClientStocksInfo] {
         return [
             WebClientStocksInfo(

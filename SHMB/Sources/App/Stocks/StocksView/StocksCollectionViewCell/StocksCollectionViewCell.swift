@@ -1,4 +1,3 @@
-import SDWebImage
 import UIKit
 
 class StocksCollectionViewCell: UICollectionViewCell {
@@ -61,13 +60,14 @@ class StocksCollectionViewCell: UICollectionViewCell {
         stocksInfo: StocksInfo,
         appStyle: AppStyle,
         l10n: L10n,
+        imageLoader: ImageLoader,
         out: Out?
     ) {
         self.stocksInfo = stocksInfo
         self.out = out
 
         // Image
-        self.imageView.sd_setImage(with: stocksInfo.imageURL, completed: nil)
+        imageLoader.load(for: self.imageView, url: stocksInfo.imageURL)
         self.imageView.backgroundColor = appStyle.stocksCell.imageStyle.placeholderColor
         self.imageView.layer.masksToBounds = true
         self.imageView.layer.cornerRadius = appStyle.stocksCell.imageStyle.cornerRadious

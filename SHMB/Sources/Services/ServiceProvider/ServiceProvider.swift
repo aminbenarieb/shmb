@@ -6,4 +6,5 @@ protocol ServiceProvider {
     var appStyle: AppStyle { get }
     var environment: Environment { get }
     var persistentStore: PersistentStore { get }
+    var imageLoader: ImageLoader { get }
 }

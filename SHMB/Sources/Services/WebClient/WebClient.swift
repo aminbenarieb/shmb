@@ -37,5 +37,4 @@ struct WebClientStocksInfo {
 
 protocol WebClient {
     func stocks(query: String) -> AnyPublisher<WebClientResponse<[WebClientStocksInfo]>, Error>
-    func image(url: URL) -> AnyPublisher<WebClientResponse<UIImage?>, Error>
 }
