@@ -5,5 +5,5 @@ struct ServiceProviderSingletonImpl: ServiceProvider {
     let l10n: L10n
     let appStyle: AppStyle
     let environment: Environment
-    let persistentStore: PersistentFavouritesStore
+    let persistentStore: PersistentStore
 }

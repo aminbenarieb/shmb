@@ -43,6 +43,10 @@ struct StocksCellStyle {
     var favouriteButtonNormal: UIColor
 
     var favouriteButtonSelected: UIColor
+    
+    var watchButtonNormal: UIColor
+
+    var watchButtonSelected: UIColor
 
     var titleLabel: LabelStyle
 

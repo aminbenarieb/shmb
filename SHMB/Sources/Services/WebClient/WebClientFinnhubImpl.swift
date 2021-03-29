@@ -103,6 +103,7 @@ extension Finnhub {
                     image: profile.image,
                     title: symbol.symbol,
                     isFavourite: false,
+                    isWatching: false,
                     subtitle: symbol.description,
                     price: quote.c,
                     priceChange: quote.change,

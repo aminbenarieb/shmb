@@ -13,3 +13,5 @@
 "empty_search" = "Nothing found for the query '%@' 😓";
 "empty" = "No data yet 🙃";
 "loading" = "Loading data ⏳...";
+"watch" = "Watch";
+"unwatch" = "Unwatch";

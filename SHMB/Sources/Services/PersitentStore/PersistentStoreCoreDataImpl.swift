@@ -2,6 +2,25 @@ import Combine
 import CoreData
 import os.log
 
+public class PersistentStoreStocksInfoCoreDataImpl: NSManagedObject {
+    
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<PersistentStoreStocksInfoCoreDataImpl> {
+        return NSFetchRequest<PersistentStoreStocksInfoCoreDataImpl>(entityName: "Stocks")
+    }
+
+    @NSManaged public var id: String
+    @NSManaged public var title: String
+    @NSManaged public var subtitle: String
+    @NSManaged public var isFavourite: Bool
+    @NSManaged public var image: Data?
+    @NSManaged public var price: Float
+    @NSManaged public var priceChange: Float
+
+}
+
+extension PersistentStoreStocksInfoCoreDataImpl : Identifiable {}
+extension PersistentStoreStocksInfoCoreDataImpl : PersistentStoreStocksInfo {}
+
 class PersistentStoreCoreDataImpl {
     private let persistentContainer: NSPersistentContainer
 
@@ -12,7 +31,7 @@ class PersistentStoreCoreDataImpl {
         }
     }
 
-    private func _save(context: NSManagedObjectContext) throws {
+    private func save(context: NSManagedObjectContext) throws {
         context.perform {
             guard context.hasChanges else {
                 return
@@ -28,25 +47,18 @@ class PersistentStoreCoreDataImpl {
         }
     }
 
-    private func _fetch(id: String) throws -> [Stocks] {
+    /*
+    
+    private func insert(id: String) throws {
         let context = self.persistentContainer.newBackgroundContext()
-        let fetchRequest: NSFetchRequest<Stocks> = Stocks.fetchRequest()
-        fetchRequest.fetchBatchSize = 10
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-        fetchRequest.predicate = NSPredicate(format: "ANY id = %@", id)
-        return try context.fetch(fetchRequest)
-    }
-
-    private func _insert(id: String) throws {
-        let context = self.persistentContainer.newBackgroundContext()
-        let stocks = Stocks(context: context)
+        let stocks = PersistentStoreStocksInfoCoreDataImpl(context: context)
         stocks.favourite = true
         stocks.id = id
-        try self._save(context: context)
+        try self.save(context: context)
     }
 
-    private func _delete(id: String) throws {
-        let stocks = try self._fetch(id: id)
+    private func delete(id: String) throws {
+        let stocks = try self.fetch(id: id)
         guard !stocks.isEmpty else {
             os_log(.debug, "Attempted to delete unexisting stocks with id = %@", id)
             return
@@ -55,20 +67,59 @@ class PersistentStoreCoreDataImpl {
         for stocksItem in stocks {
             context.delete(stocksItem)
         }
-        try self._save(context: context)
+        try self.save(context: context)
     }
+ 
+     */
+
 }
 
-extension PersistentStoreCoreDataImpl: PersistentFavouritesStore {
-    func add(id _: String) -> AnyPublisher<Bool, Error> {
-        fatalError("add(stocksInfo:) not implemented for \(String(describing: self))")
+extension PersistentStoreCoreDataImpl: PersistentStore {
+    func watch(stocksInfo: PersistentStoreStocksInfo) -> AnyPublisher<Bool, Error> {
+        // assert not already added
+        // add to watch list
+        fatalError("Not implemented")
     }
-
-    func remove(id _: String) -> AnyPublisher<Bool, Error> {
-        fatalError("remove(stocksInfo:) not implemented for \(String(describing: self))")
+    
+    func unwatch(stocksInfo: PersistentStoreStocksInfo) -> AnyPublisher<Bool, Error> {
+        // assert is exist
+        // remove from watch list
+        fatalError("Not implemented")
     }
-
-    func fetch(ids _: [String]) -> AnyPublisher<[PersistentStoreStocksInfo], Error> {
-        fatalError("fetch(count:) not implemented for \(String(describing: self))")
+    
+    func favourite(stocksInfo: PersistentStoreStocksInfo) -> AnyPublisher<Bool, Error> {
+        // assert is exist
+        // mark as favourite
+        fatalError("Not implemented")
     }
+    
+    func unfavourite(stocksInfo: PersistentStoreStocksInfo) -> AnyPublisher<Bool, Error> {
+        // assert is exist
+        // mark as unfavourite
+        fatalError("Not implemented")
+    }
+    
+    func fetch(fetchStocksInfo: PersistentStoreFetchStocksInfo) -> AnyPublisher<[PersistentStoreStocksInfo], Error> {
+        Deferred {
+            Future { promise in
+                do {
+                    let context = self.persistentContainer.newBackgroundContext()
+                    let fetchRequest: NSFetchRequest<PersistentStoreStocksInfoCoreDataImpl> = PersistentStoreStocksInfoCoreDataImpl.fetchRequest()
+                    fetchRequest.fetchBatchSize = 10
+                    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)] // TODO: Support sorting in API
+                    if let isFavourite = fetchStocksInfo.isFavourite {
+                        fetchRequest.predicate = NSPredicate(format: "ANY favourite = %@",  NSNumber(value: isFavourite))
+                    }
+                    let fetchResult = try context.fetch(fetchRequest)
+                    promise(.success(fetchResult))
+                }
+                catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    
 }

@@ -16,6 +16,8 @@ enum L10nKey: String {
     case error
     case tryAgain = "try_again"
     case loading
+    case watch
+    case unwatch
 }
 
 protocol L10n {

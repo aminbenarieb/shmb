@@ -12,6 +12,8 @@ class StocksCollectionViewCell: UICollectionViewCell {
     @IBOutlet
     private var favouriteButton: UIButton!
     @IBOutlet
+    private var watchButton: UIButton!
+    @IBOutlet
     private var subtitleLabel: UILabel!
     @IBOutlet
     private var priceLabel: UILabel!
@@ -21,6 +23,7 @@ class StocksCollectionViewCell: UICollectionViewCell {
     private var stocksInfo: StocksInfo?
     private var out: Out?; typealias Out = (Cmd) -> Void; enum Cmd {
         case toggleFavourite(StocksInfo)
+        case toggleWatch(StocksInfo)
     }
 
     // MARK: View life cycle
@@ -36,6 +39,8 @@ class StocksCollectionViewCell: UICollectionViewCell {
         self.imageView.image = nil
         self.favouriteButton.setImage(nil, for: .normal)
         self.favouriteButton.tintColor = .clear
+        self.watchButton.setImage(nil, for: .normal)
+        self.watchButton.tintColor = .clear
         self.titleLabel.text = nil
         self.subtitleLabel.text = nil
         self.priceLabel.text = nil
@@ -54,6 +59,7 @@ class StocksCollectionViewCell: UICollectionViewCell {
         index: Int,
         stocksInfo: StocksInfo,
         appStyle: AppStyle,
+        l10n: L10n,
         out: Out?
     ) {
         self.stocksInfo = stocksInfo
@@ -71,12 +77,29 @@ class StocksCollectionViewCell: UICollectionViewCell {
         self.titleLabel.textColor = appStyle.stocksCell.titleLabel.color
 
         // Favourite button
-        self.favouriteButton.setImage(
-            UIImage(systemName: stocksInfo.isFavourite ? "star.fill" : "star"),
-            for: .normal
-        )
-        self.favouriteButton.tintColor = stocksInfo.isFavourite ? appStyle.stocksCell
-            .favouriteButtonSelected : appStyle.stocksCell.favouriteButtonNormal
+        if let isFavourite = stocksInfo.isFavourite {
+            self.favouriteButton.isHidden = false
+            self.favouriteButton.setImage(
+                UIImage(systemName: isFavourite ? "star.fill" : "star"),
+                for: .normal
+            )
+            self.favouriteButton.tintColor = isFavourite ? appStyle.stocksCell
+                .favouriteButtonSelected : appStyle.stocksCell.favouriteButtonNormal
+        }
+        else {
+            self.favouriteButton.isHidden = true
+        }
+        
+        // Watching  button
+        if let isWatching = stocksInfo.isWatching {
+            self.watchButton.isHidden = false
+            self.watchButton.setTitle(isWatching ? l10n.localized(.unwatch) : l10n.localized(.watch), for: .normal)
+            self.watchButton.setTitleColor(isWatching ? appStyle.stocksCell
+                                            .watchButtonNormal : appStyle.stocksCell.watchButtonSelected, for: .normal)
+        }
+        else {
+            self.watchButton.isHidden = true
+        }
 
         // Subtitle
         self.subtitleLabel.text = stocksInfo.subtitle
@@ -176,4 +199,11 @@ class StocksCollectionViewCell: UICollectionViewCell {
         guard let stocksInfo = self.stocksInfo else { return }
         self.out?(.toggleFavourite(stocksInfo))
     }
+    
+    @IBAction
+    private func watchAction(_ sender: Any) {
+        guard let stocksInfo = self.stocksInfo else { return }
+        self.out?(.toggleWatch(stocksInfo))
+    }
+    
 }

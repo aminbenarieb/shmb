@@ -29,6 +29,8 @@ struct AppWhiteStyle: AppStyle {
         imageStyle: ImageStyle(cornerRadious: 12, placeholderColor: .lightGray),
         favouriteButtonNormal: UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1),
         favouriteButtonSelected: UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1),
+        watchButtonNormal: UIColor(red: 44/255, green: 130/255, blue: 201/255, alpha: 1),
+        watchButtonSelected: UIColor(red: 44/255, green: 130/255, blue: 201/255, alpha: 1).withAlphaComponent(0.6),
         titleLabel: LabelStyle(
             font: UIFont.systemFont(ofSize: 18, weight: .bold),
             color: UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)

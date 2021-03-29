@@ -154,11 +154,14 @@ class StocksViewController: UIViewController {
                     cell?.configure(
                         index: indexPath.row,
                         stocksInfo: stocksInfo,
-                        appStyle: self.appStyle
+                        appStyle: self.appStyle,
+                        l10n: self.l10n
                     ) { cmd in
                         switch cmd {
                         case let .toggleFavourite(stocksInfo):
                             self.presenter.in(.stocksAction(stocksInfo, .toggleFavourite))
+                        case let .toggleWatch(stocksInfo):
+                            self.presenter.in(.stocksAction(stocksInfo, .toggleWatch))
                         }
                     }
                     return cell
@@ -354,7 +357,7 @@ extension StocksViewController: UICollectionViewDelegate {
         let threshold = CGFloat(100.0)
         let contentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        if maximumOffset - contentOffset <= threshold, maximumOffset - contentOffset != -5.0 {
+        if maximumOffset - contentOffset <= threshold, maximumOffset - contentOffset != -5.0 && scrollView.isDragging {
             self.presenter.in(.nextPage)
         }
     }

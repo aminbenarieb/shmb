@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 l10n: L10nImpl(),
                 appStyle: appStyle,
                 environment: environment,
-                persistentStore: PersistentStoreUserDefaultsImpl(userDefaults: .standard)
+                persistentStore: PersistentStoreCoreDataImpl()
             )
             let stoksViewController = StocksViewController(
                 serviceProvider: serviceProvider

@@ -5,7 +5,8 @@ struct StocksInfo {
     let id: String
     let image: UIImage?
     let title: String
-    let isFavourite: Bool
+    let isFavourite: Bool?
+    let isWatching: Bool?
     let subtitle: String
     let price: Double?
     let priceChange: Double?
@@ -28,6 +29,7 @@ extension StocksInfo {
             image: self.image,
             title: self.title,
             isFavourite: isFavourite,
+            isWatching: self.isWatching,
             subtitle: self.subtitle,
             price: self.price,
             priceChange: self.priceChange,
